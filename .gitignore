@@ -10,3 +10,5 @@
 !tiling-window-manager/**
 !doom/
 !doom/**
+!zshrc/
+!zshrc/**
