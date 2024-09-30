@@ -1,0 +1,9 @@
+# Ignore everything
+*
+
+# But include these files and directories
+!.gitignore
+!kitty/
+!kitty/**
+!tiling-window-manager/
+!tiling-window-manager/**

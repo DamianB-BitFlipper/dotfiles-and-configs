@@ -1,0 +1,155 @@
+#  NOTE(koekeishiya): A list of all built-in modifier and literal keywords can
+#                     be found at https://github.com/koekeishiya/skhd/issues/1
+#
+#                     A hotkey is written according to the following rules:
+#
+#                       hotkey       = <mode> '<' <action> | <action>
+#
+#                       mode         = 'name of mode' | <mode> ',' <mode>
+#
+#                       action       = <keysym> '[' <proc_map_lst> ']' | <keysym> '->' '[' <proc_map_lst> ']'
+#                                      <keysym> ':' <command>          | <keysym> '->' ':' <command>
+#                                      <keysym> ';' <mode>             | <keysym> '->' ';' <mode>
+#
+#                       keysym       = <mod> '-' <key> | <key>
+#
+#                       mod          = 'modifier keyword' | <mod> '+' <mod>
+#
+#                       key          = <literal> | <keycode>
+#
+#                       literal      = 'single letter or built-in keyword'
+#
+#                       keycode      = 'apple keyboard kVK_<Key> values (0x3C)'
+#
+#                       proc_map_lst = * <proc_map>
+#
+#                       proc_map     = <string> ':' <command> | <string>     '~' |
+#                                      '*'      ':' <command> | '*'          '~'
+#
+#                       string       = '"' 'sequence of characters' '"'
+#
+#                       command      = command is executed through '$SHELL -c' and
+#                                      follows valid shell syntax. if the $SHELL environment
+#                                      variable is not set, it will default to '/bin/bash'.
+#                                      when bash is used, the ';' delimeter can be specified
+#                                      to chain commands.
+#
+#                                      to allow a command to extend into multiple lines,
+#                                      prepend '\' at the end of the previous line.
+#
+#                                      an EOL character signifies the end of the bind.
+#
+#                       ->           = keypress is not consumed by skhd
+#
+#                       *            = matches every application not specified in <proc_map_lst>
+#
+#                       ~            = application is unbound and keypress is forwarded per usual, when specified in a <proc_map>
+#
+#  NOTE(koekeishiya): A mode is declared according to the following rules:
+#
+#                       mode_decl = '::' <name> '@' ':' <command> | '::' <name> ':' <command> |
+#                                   '::' <name> '@'               | '::' <name>
+#
+#                       name      = desired name for this mode,
+#
+#                       @         = capture keypresses regardless of being bound to an action
+#
+#                       command   = command is executed through '$SHELL -c' and
+#                                   follows valid shell syntax. if the $SHELL environment
+#                                   variable is not set, it will default to '/bin/bash'.
+#                                   when bash is used, the ';' delimeter can be specified
+#                                   to chain commands.
+#
+#                                   to allow a command to extend into multiple lines,
+#                                   prepend '\' at the end of the previous line.
+#
+#                                   an EOL character signifies the end of the bind.
+
+# add an on_enter command to the default mode
+# :: default : yabai -m config active_window_border_color 0xff775759
+#
+# defines a new mode 'test' with an on_enter command, that captures keypresses
+# :: test @ : yabai -m config active_window_border_color 0xff24ccaa
+#
+# from 'default' mode, activate mode 'test'
+# cmd - x ; test
+#
+# from 'test' mode, activate mode 'default'
+# test < cmd - x ; default
+#
+# launch a new terminal instance when in either 'default' or 'test' mode
+# default, test < cmd - return : open -na /Applications/Terminal.app
+
+# application specific bindings
+#
+# cmd - n [
+#     "kitty"       : echo "hello kitty"
+#     *             : echo "hello everyone"
+#     "qutebrowser" : echo "hello qutebrowser"
+#     "terminal"    ~
+#     "finder"      : false
+# ]
+
+# specify a file that should be included as an additional config-file.
+# treated as an absolutepath if the filename begins with '/' otherwise
+# the file is relative to the path of the config-file it was loaded from.
+#
+# .load "/Users/Koe/.config/partial_skhdrc"
+# .load "partial_skhdrc"
+
+# prevent skhd from monitoring events for specific applications.
+#
+#.blacklist [
+#    "kitty"
+#    "terminal"
+#    "emacs"
+#]
+
+# open terminal, blazingly fast compared to iTerm/Hyper
+#cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+
+# yabai bindings
+alt + shift - r : yabai --restart-service
+
+# Navigate windows
+alt - left  : yabai -m window --focus west
+alt - down  : yabai -m window --focus south
+alt - up    : yabai -m window --focus north
+alt - right : yabai -m window --focus east
+
+# Move windows around
+alt + shift - left : yabai -m window --swap west || $(yabai -m window --display west; yabai -m display --focus west)
+alt + shift - down : yabai -m window --swap south || $(yabai -m window --display south; yabai -m display --focus south)
+alt + shift - up : yabai -m window --swap north || $(yabai -m window --display north; yabai -m display --focus north)
+alt + shift - right : yabai -m window --swap east || $(yabai -m window --display east; yabai -m display --focus east)
+
+# Go to specific applications
+lalt - 0x32 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-application.py Emacs --window-title ".*vterm.*" # alt - backtick : Go to the Emacs with Aider in its window title
+lalt - 1 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-application.py Emacs --window-title "^(?!.*vterm).*$" # Go to the Emacs without Aider in its window title
+lalt - 2 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-application.py kitty
+lalt - 3 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-application.py "Brave Browser"
+lalt - 4 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-application.py Claude
+lalt - 5 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-application.py Mail
+lalt - 7 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-application.py "Microsoft Outlook"
+lalt - 8 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-application.py Slack
+lalt - 9 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-application.py Notion
+
+ralt - 8 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-application.py Numbers
+ralt - 9 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-application.py DBeaver dbeaver "DBeaver Community"
+ralt - 0 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-application.py Music
+
+# Focus on the Desktops
+alt - 0 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-space-uuid.py 43C9EB0D-4961-454D-8B2D-F683569518A3
+alt - 6 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-space-uuid.py 511A56BC-EC2D-4CC9-8622-8A14A8B8DB1E
+
+# Change the split direction
+alt - s : yabai -m window --toggle split
+
+# Enter fullscreen mode for the focused container
+alt - f : yabai -m window --toggle zoom-fullscreen
+
+# Toggle window native fullscreen
+alt + shift - f : yabai -m window --toggle native-fullscreen
+
+# Close focused window
+alt - w : yabai -m window --close
