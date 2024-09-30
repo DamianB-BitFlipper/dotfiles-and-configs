@@ -8,3 +8,5 @@
 !kitty/**
 !tiling-window-manager/
 !tiling-window-manager/**
+!doom/
+!doom/**
