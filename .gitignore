@@ -2,6 +2,7 @@
 *
 
 # But include these files and directories
+!README.md
 !.gitignore
 !kitty/
 !kitty/**
