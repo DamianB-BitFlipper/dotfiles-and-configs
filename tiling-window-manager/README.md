@@ -8,4 +8,4 @@ Be sure to ln the `.skhdrc` and `.yabairc` to `$HOME`
 # If you get an error, usually upon rebooting, that the scripting-addition failed, simply run
 sudo yabai --load-sa
 
-Somtimes you may need to first `sudo yabai --uninstall-sa` before running `--load-sa` to get things working.
+Sometimes you may need to first `sudo yabai --uninstall-sa` before running `--load-sa` to get things working.
