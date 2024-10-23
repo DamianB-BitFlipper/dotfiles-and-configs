@@ -54,8 +54,8 @@ aider() {
     local args=(
         "--anthropic-api-key" "$anthropic_api_key"
         "--openai-api-key" "$openai_api_key"
-        "--model" "claude-3-5-sonnet-20240620"
-        "--weak-model" "gpt-4o-mini"
+        "--sonnet"
+        # "--weak-model" "gpt-4o-mini"
         "--architect"
         #"--cache-prompts"
         #"--cache-keepalive-pings" "12"
