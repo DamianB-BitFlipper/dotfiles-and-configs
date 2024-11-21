@@ -70,3 +70,4 @@ aider() {
 
     $cmd "${args[@]}" "$@"
 }
+eval "$(uv generate-shell-completion zsh)"

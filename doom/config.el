@@ -328,6 +328,7 @@
       :desc "Recompile" "c c" #'recompile
 
       :desc "Vertico Project Search" "s p" #'+vertico/project-search
+      :desc "Vertico Project Search" "s d" #'+vertico/project-search-from-cwd
 
       :desc "Restore last session" "w r" #'+workspace/restore-last-session
       :desc "Rename workspace" "w R" #'+workspace/rename
