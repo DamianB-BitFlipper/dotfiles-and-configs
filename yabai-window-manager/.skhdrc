@@ -140,7 +140,7 @@ ralt - 0 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-applicatio
 
 # Focus on the Desktops
 alt - 0 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-space-uuid.py 43C9EB0D-4961-454D-8B2D-F683569518A3
-alt - 6 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-space-uuid.py 511A56BC-EC2D-4CC9-8622-8A14A8B8DB1E
+alt - 6 : /Users/damianb/.config/tiling-window-manager/scripts/go-to-space-uuid.py 9A759D45-8C7B-4B9B-8143-974F68E62C31
 
 # Change the split direction
 alt - s : yabai -m window --toggle split

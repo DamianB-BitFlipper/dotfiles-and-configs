@@ -305,6 +305,10 @@
 ;; Enable visual line mode globally
 (global-visual-line-mode t)
 
+;; Enable and then disable the tool bar so that it shrinks
+(tool-bar-mode t)
+(tool-bar-mode -1)
+
 ;; Enable aider-mode globally
 (use-package! aider-mode
   :custom

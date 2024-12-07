@@ -6,8 +6,10 @@
 !.gitignore
 !kitty/
 !kitty/**
-!tiling-window-manager/
-!tiling-window-manager/**
+!yabai-window-manager/
+!yabai-window-manager/**
+!sketchybar/
+!sketchybar/**
 !doom/
 !doom/**
 !zshrc/
