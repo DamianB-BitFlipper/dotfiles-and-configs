@@ -56,5 +56,5 @@
 (package! dockerfile-mode
   :recipe (:host github :repo "spotify/dockerfile-mode" :files ("*.el")))
 
-(package! aider-mode
-  :recipe (:local-repo "~/Documents/my_code/aider-mode"))
+;; (package! aider-mode
+;;   :recipe (:local-repo "~/Documents/my_code/aider-mode"))

@@ -310,17 +310,17 @@
 (tool-bar-mode -1)
 
 ;; Enable aider-mode globally
-(use-package! aider-mode
-  :custom
-  (aider-always-add-files '("CONVENTIONS.md"))
-  :config
-  (setq aider-display-method 'frame)
-  (require 'auth-source)
-  (let ((credential (auth-source-user-and-password "api.anthropic.com")))
-    (setq aider-cli-flags
-          (list "--anthropic-api-key" (cadr credential)
-                "--sonnet" "--dark-mode" "--no-auto-lint")))
-  (global-aider-mode t))
+;; (use-package! aider-mode
+;;   :custom
+;;   (aider-always-add-files '("CONVENTIONS.md"))
+;;   :config
+;;   (setq aider-display-method 'frame)
+;;   (require 'auth-source)
+;;   (let ((credential (auth-source-user-and-password "api.anthropic.com")))
+;;     (setq aider-cli-flags
+;;           (list "--anthropic-api-key" (cadr credential)
+;;                 "--sonnet" "--dark-mode" "--no-auto-lint")))
+;;   (global-aider-mode t))
 
 ;; Keybindings with no package loading dependency
 (map! :map 'override

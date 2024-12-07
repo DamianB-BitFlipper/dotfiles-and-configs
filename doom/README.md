@@ -2,9 +2,11 @@
 
 ## Configuration
 
+Install `doom` following https://github.com/doomemacs/doomemacs/blob/master/docs/getting_started.org#with-homebrew via the `emacs-mac` recipe.
+
 Be sure to ln this directory to `$HOME/.doom.d`.
 
-`ln -s $HOME/.config/doom` `$HOME/.doom.d`.
+`ln -s $HOME/.config/doom $HOME/.doom.d`.
 
 ## Installation
 - Enable `dap-mode` and then be sure to run `M-x dap-cpptools-setup` to setup the adapter before using it the first time.
