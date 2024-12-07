@@ -36,9 +36,12 @@ sketchybar \
   --bar "${bar[@]}" \
   --default "${default[@]}"
 
-##### Add Aerospace Workspace Indicators #####
+##### Register Events
 
 sketchybar --add event aerospace_workspace_change
+sketchybar --add event bluetooth_change "com.apple.bluetooth.status"
+
+##### Add Aerospace Workspace Indicators #####
 
 for sid in $(aerospace list-workspaces --all); do
     sketchybar --add item space.$sid left \
@@ -72,9 +75,16 @@ sketchybar --add item volume right \
 sketchybar --add item battery right \
            --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
            --subscribe battery system_woke power_source_change
-sketchybar --add item wifi right                         \
+sketchybar --add item headphones    right \
+           --set headphones script="$PLUGIN_DIR/headphones.sh" \
+           label.padding_right=0 \
+           --subscribe headphones bluetooth_change \
+sketchybar --add item wifi right \
            --set wifi script="$PLUGIN_DIR/wifi.sh" \
            update_freq=5
+sketchybar --add item bitcoin right \
+           --set bitcoin script="$PLUGIN_DIR/bitcoin.sh" \
+           update_freq=120
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
