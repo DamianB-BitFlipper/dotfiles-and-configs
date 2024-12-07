@@ -8,6 +8,8 @@
 !kitty/**
 !yabai-window-manager/
 !yabai-window-manager/**
+!aerospace-window-manager/
+!aerospace-window-manager/**
 !sketchybar/
 !sketchybar/**
 !doom/
