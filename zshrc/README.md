@@ -9,6 +9,7 @@ Be sure to ln `.zshrc` to `$HOME`.
 ## Requirements
 
 - `uv`
+- `aider`
 
 ## Authentication
 
