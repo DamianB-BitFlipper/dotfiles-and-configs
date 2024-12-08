@@ -8,6 +8,7 @@ Be sure to ln `.zshrc` to `$HOME`.
 
 ## Requirements
 
+- `pipx`
 - `uv`
 - `aider`
 
