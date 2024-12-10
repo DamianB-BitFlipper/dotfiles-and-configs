@@ -96,6 +96,11 @@ alt-shift-c = 'reload-config'
 
 alt-r = 'mode resize'
 
+[workspace-to-monitor-force-assignment]
+1 = '^P27h-20 \(2\)$'
+2 = '^P27h-20 \(1\)$'
+4 = '^P27h-20 \(1\)$'
+
 [mode.resize.binding]
 left = 'resize width -50'
 up = 'resize height +50'

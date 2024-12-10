@@ -57,11 +57,13 @@ aider() {
         "--sonnet"
         # "--weak-model" "gpt-4o-mini"
         "--architect"
-        #"--cache-prompts"
-        #"--cache-keepalive-pings" "12"
+        "--cache-prompts"
+        "--cache-keepalive-pings" "12"
         "--no-suggest-shell-commands"
         "--dark-mode"
         "--no-auto-lint"
+        "--watch-files"
+        "--yes-always"
     )
 
     if [[ -f ".aider.conventions.md" ]]; then
