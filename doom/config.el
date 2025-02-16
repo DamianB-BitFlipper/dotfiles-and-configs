@@ -322,6 +322,41 @@
 ;;                 "--sonnet" "--dark-mode" "--no-auto-lint")))
 ;;   (global-aider-mode t))
 
+;; Enable aider-mode globally
+;; (use-package aider
+;;   :config
+;;   (let ((anthropic-credential (auth-source-user-and-password "api.anthropic.com"))
+;;         (openai-credential (auth-source-user-and-password "api.openai.com")))
+;;     (setq aider-args
+;;           (list "--anthropic-api-key" (cadr anthropic-credential)
+;;                 "--openai-api-key" (cadr openai-credential)
+;;                 "--model" "sonnet"
+;;                 "--cache-prompts"
+;;                 "--cache-keepalive-pings" "12"
+;;                 "--no-suggest-shell-commands"
+;;                 "--no-auto-lint"
+;;                 "--dark-mode"))))
+
+(use-package aidermacs
+  :config
+  (let ((anthropic-credential (auth-source-user-and-password "api.anthropic.com"))
+        (openai-credential (auth-source-user-and-password "api.openai.com")))
+    (setq aidermacs-use-architect-mode t)
+    (setq aidermacs-architect-model "sonnet")
+    (setq aidermacs-editor-model "sonnet")
+    (setq aidermacs-backend 'vterm-no)
+    (setq aidermacs-auto-commits t)
+    (setq aidermacs-extra-args
+          (list "--anthropic-api-key" (cadr anthropic-credential)
+                "--openai-api-key" (cadr openai-credential)
+                "--cache-prompts"
+                "--cache-keepalive-pings" "12"
+                "--no-suggest-shell-commands"
+                "--no-auto-lint"
+                "--dark-mode"
+                "--watch-files"))))
+
+
 ;; Keybindings with no package loading dependency
 (map! :map 'override
       :desc "Go to beginning of function" "C-M-;" #'beginning-of-defun
@@ -330,6 +365,8 @@
       :leader
       :desc "Compile" "c C" #'compile
       :desc "Recompile" "c c" #'recompile
+
+      :desc "Aider" "a" #'aidermacs-transient-menu
 
       :desc "Vertico Project Search" "s p" #'+vertico/project-search
       :desc "Vertico Project Search" "s d" #'+vertico/project-search-from-cwd

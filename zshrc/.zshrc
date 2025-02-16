@@ -54,16 +54,17 @@ aider() {
     local args=(
         "--anthropic-api-key" "$anthropic_api_key"
         "--openai-api-key" "$openai_api_key"
-        "--sonnet"
-        # "--weak-model" "gpt-4o-mini"
         "--architect"
+        # "--model" "o3-mini"
+        # "--reasoning-effort" "high"
+        "--model" "sonnet"
+        "--editor-model" "sonnet"
         "--cache-prompts"
         "--cache-keepalive-pings" "12"
         "--no-suggest-shell-commands"
         "--dark-mode"
         "--no-auto-lint"
         "--watch-files"
-        "--yes-always"
     )
 
     if [[ -f ".aider.conventions.md" ]]; then
