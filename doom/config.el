@@ -344,7 +344,7 @@
     (setq aidermacs-use-architect-mode t)
     (setq aidermacs-architect-model "sonnet")
     (setq aidermacs-editor-model "sonnet")
-    (setq aidermacs-backend 'vterm-no)
+    (setq aidermacs-backend 'vterm)
     (setq aidermacs-auto-commits t)
     (setq aidermacs-extra-args
           (list "--anthropic-api-key" (cadr anthropic-credential)
