@@ -305,9 +305,21 @@
 ;; Enable visual line mode globally
 (global-visual-line-mode t)
 
-;; Enable and then disable the tool bar so that it shrinks
-(tool-bar-mode t)
-(tool-bar-mode -1)
+(defun shrink-tool-bar ()
+  "Enable and disable tool bar to shrink it."
+  (tool-bar-mode 1)
+  (tool-bar-mode -1))
+
+;; For initial frame at startup
+(shrink-tool-bar)
+
+;; For any new frames created later
+(defun shrink-tool-bar-new-frame (frame)
+  "Enable and disable tool bar to shrink it on FRAME."
+  (with-selected-frame frame
+    (shrink-tool-bar)))
+
+(add-hook 'after-make-frame-functions #'shrink-tool-bar-new-frame)
 
 ;; Enable aider-mode globally
 ;; (use-package! aider-mode
@@ -356,11 +368,22 @@
                 "--dark-mode"
                 "--watch-files"))))
 
+(defun my-other-window (&optional arg)
+  "Like `other-window' but tries twice if first window is *aidermacs:...*"
+  (interactive "P")
+  (let ((orig-window (selected-window)))
+    (other-window (or arg 1))
+    (when (and (string-match "^\\*aidermacs:\\(.*?\\)\\*$"
+                             (buffer-name))
+               (not (eq (selected-window) orig-window)))
+      (other-window (or arg 1)))))
 
 ;; Keybindings with no package loading dependency
 (map! :map 'override
       :desc "Go to beginning of function" "C-M-;" #'beginning-of-defun
       :desc "Go to end of function" "C-M-'" #'end-of-defun
+
+      :desc "Aidermacs other window" "C-x o" #'my-other-window
 
       :leader
       :desc "Compile" "c C" #'compile
