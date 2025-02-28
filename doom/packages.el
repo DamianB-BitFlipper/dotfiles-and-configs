@@ -49,8 +49,7 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 
-(package! copilot
-  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el" "dist")))
+(package! codeium :recipe (:host github :repo "Exafunction/codeium.el"))
 
 ;; Add syntax highlighting for Dockerfiles
 (package! dockerfile-mode

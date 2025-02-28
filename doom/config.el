@@ -66,15 +66,6 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Accept completion from copilot and fallback to company
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("TAB" . 'copilot-accept-completion)
-              ("<tab>" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
-
 ;; Set up the python DAP debugger
 (after! dap-mode
   ;; Important: Be sure to run M-x dap-cpptools-setup to setup
@@ -237,20 +228,24 @@
       objc-mode
       protobuf-mode)))
 
-;;
-;; Remap some keybindings
-;;
-
 ;; Set the keybindings after package has been loaded
 ;; to overwrite any settings that may have been set
 (after! company
   (map! :map company-active-map
         "TAB" #'company-complete-selection
-        "<tab>" #'company-complete-selection))
+        "<tab>" #'company-complete-selection)
+  (global-company-mode t)
+  (setq-default
+   company-idle-delay 0.05
+   company-require-match nil
+   company-minimum-prefix-length 0
+   company-frontends '(company-pseudo-tooltip-frontend company-preview-frontend))
+  )
 
-;; The (after! avy) does not work, so just go direct
-(map! :leader
-      :desc "Avy goto char timer" "j" #'avy-goto-char-timer)
+;; If one needs to add more frontends when using company-box
+;; (add-hook 'company-box-mode-hook
+;;           (lambda ()
+;;             (add-to-list 'company-frontends 'company-preview-frontend)))
 
 ;; Disable poetry-tracking-mode in Python buffers
 (after! python
@@ -293,6 +288,22 @@
 (after! auth-source
   (setq auth-sources '("~/.authinfo" "~/.authinfo.gpg")))
 
+;; Set up codeium
+(use-package! codeium)  ;; Needed so that after! codeium triggers
+(after! codeium
+  (codeium-init))
+
+(add-hook! 'prog-mode-hook
+  (add-hook 'completion-at-point-functions #'codeium-completion-at-point nil t))
+
+;; Since lsp does not play nice with codeium, always make sure codeium is first
+(add-hook 'lsp-completion-mode-hook
+          (lambda ()
+            (setq-local completion-at-point-functions
+                        (cons 'codeium-completion-at-point
+                              (remove 'codeium-completion-at-point
+                                      completion-at-point-functions)))))
+
 ;; Set up grip
 (use-package! grip-mode
   :config
@@ -320,34 +331,6 @@
     (shrink-tool-bar)))
 
 (add-hook 'after-make-frame-functions #'shrink-tool-bar-new-frame)
-
-;; Enable aider-mode globally
-;; (use-package! aider-mode
-;;   :custom
-;;   (aider-always-add-files '("CONVENTIONS.md"))
-;;   :config
-;;   (setq aider-display-method 'frame)
-;;   (require 'auth-source)
-;;   (let ((credential (auth-source-user-and-password "api.anthropic.com")))
-;;     (setq aider-cli-flags
-;;           (list "--anthropic-api-key" (cadr credential)
-;;                 "--sonnet" "--dark-mode" "--no-auto-lint")))
-;;   (global-aider-mode t))
-
-;; Enable aider-mode globally
-;; (use-package aider
-;;   :config
-;;   (let ((anthropic-credential (auth-source-user-and-password "api.anthropic.com"))
-;;         (openai-credential (auth-source-user-and-password "api.openai.com")))
-;;     (setq aider-args
-;;           (list "--anthropic-api-key" (cadr anthropic-credential)
-;;                 "--openai-api-key" (cadr openai-credential)
-;;                 "--model" "sonnet"
-;;                 "--cache-prompts"
-;;                 "--cache-keepalive-pings" "12"
-;;                 "--no-suggest-shell-commands"
-;;                 "--no-auto-lint"
-;;                 "--dark-mode"))))
 
 (use-package aidermacs
   :config
@@ -390,6 +373,8 @@
       :desc "Recompile" "c c" #'recompile
 
       :desc "Aider" "a" #'aidermacs-transient-menu
+
+      :desc "Avy goto char timer" "j" #'avy-goto-char-timer
 
       :desc "Vertico Project Search" "s p" #'+vertico/project-search
       :desc "Vertico Project Search" "s d" #'+vertico/project-search-from-cwd
