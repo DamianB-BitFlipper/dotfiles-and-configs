@@ -343,6 +343,9 @@
                (not (eq (selected-window) orig-window)))
       (other-window (or arg 1)))))
 
+(after! llm
+  (setq llm-warn-on-nonfree nil))
+
 (after! magit
   ;; Configure magit-gptcommit
   (use-package! magit-gptcommit
