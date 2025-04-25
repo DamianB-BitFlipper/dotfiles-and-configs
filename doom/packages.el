@@ -49,18 +49,14 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 
-(package! codeium :recipe (:host github :repo "Exafunction/codeium.el"))
-
 ;; Add syntax highlighting for Dockerfiles
 (package! dockerfile-mode
   :recipe (:host github :repo "spotify/dockerfile-mode" :files ("*.el")))
 
-;; (package! aider-mode
-;;   :recipe (:local-repo "~/Documents/my_code/aider-mode"))
-
-;; (package! aider
-;;   :recipe (:host github :repo "tninja/aider.el" :files ("aider.el" "aider-helm.el" "aider-doom.el")))
-
 ;; (package! aidermacs :recipe (:host github :repo "DamianB-BitFlipper/aidermacs" :files ("*.el")))
 (package! aidermacs
   :recipe (:local-repo "~/Documents/my_code/aidermacs" :files ("*.el")))
+
+;; Install magit-gptcommit library
+(package! magit-gptcommit
+  :recipe (:host github :repo "douo/magit-gptcommit" :files ("*.el")))

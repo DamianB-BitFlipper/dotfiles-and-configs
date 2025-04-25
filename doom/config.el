@@ -234,13 +234,7 @@
   (map! :map company-active-map
         "TAB" #'company-complete-selection
         "<tab>" #'company-complete-selection)
-  (global-company-mode t)
-  (setq-default
-   company-idle-delay 0.05
-   company-require-match nil
-   company-minimum-prefix-length 0
-   company-frontends '(company-pseudo-tooltip-frontend company-preview-frontend))
-  )
+  (global-company-mode t))
 
 ;; If one needs to add more frontends when using company-box
 ;; (add-hook 'company-box-mode-hook
@@ -288,22 +282,6 @@
 (after! auth-source
   (setq auth-sources '("~/.authinfo" "~/.authinfo.gpg")))
 
-;; Set up codeium
-(use-package! codeium)  ;; Needed so that after! codeium triggers
-(after! codeium
-  (codeium-init))
-
-(add-hook! 'prog-mode-hook
-  (add-hook 'completion-at-point-functions #'codeium-completion-at-point nil t))
-
-;; Since lsp does not play nice with codeium, always make sure codeium is first
-(add-hook 'lsp-completion-mode-hook
-          (lambda ()
-            (setq-local completion-at-point-functions
-                        (cons 'codeium-completion-at-point
-                              (remove 'codeium-completion-at-point
-                                      completion-at-point-functions)))))
-
 ;; Set up grip
 (use-package! grip-mode
   :config
@@ -315,6 +293,10 @@
 
 ;; Enable visual line mode globally
 (global-visual-line-mode t)
+
+;; Disable the helper `which-key' mode since it is extremely slow
+(after! which-key
+  (which-key-mode -1))
 
 (defun shrink-tool-bar ()
   "Enable and disable tool bar to shrink it."
@@ -361,6 +343,27 @@
                (not (eq (selected-window) orig-window)))
       (other-window (or arg 1)))))
 
+(after! magit
+  ;; Configure magit-gptcommit
+  (use-package! magit-gptcommit
+    :init
+    (require 'llm-openai)
+    :custom
+    (magit-gptcommit-llm-provider
+     (make-llm-openai :key (cadr (auth-source-user-and-password "api.openai.com")) :chat-model "gpt-4o-mini"))
+
+    :config
+    ;; Add keybinding to git-commit-mode-map
+    (map! :map git-commit-mode-map
+          "C-c C-g" #'magit-gptcommit-commit-accept)
+
+    ;; Setup for status buffer
+    (magit-gptcommit-status-buffer-setup)
+
+    ;; Optional: Enable the mode that watches staged changes and generates automatically
+    ;; (magit-gptcommit-mode 1)
+    ))
+
 ;; Keybindings with no package loading dependency
 (map! :map 'override
       :desc "Go to beginning of function" "C-M-;" #'beginning-of-defun
@@ -377,7 +380,8 @@
       :desc "Avy goto char timer" "j" #'avy-goto-char-timer
 
       :desc "Vertico Project Search" "s p" #'+vertico/project-search
-      :desc "Vertico Project Search" "s d" #'+vertico/project-search-from-cwd
+      :desc "Vertico Project Search CWD" "s d" #'+vertico/project-search-from-cwd
+      :desc "Projectile Find File" "s f" #'projectile-find-file
 
       :desc "Restore last session" "w r" #'+workspace/restore-last-session
       :desc "Rename workspace" "w R" #'+workspace/rename
