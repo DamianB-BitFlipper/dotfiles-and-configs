@@ -353,15 +353,7 @@
      (make-llm-openai :key (cadr (auth-source-user-and-password "api.openai.com")) :chat-model "gpt-4o-mini"))
 
     :config
-    ;; Add keybinding to git-commit-mode-map
-    (map! :map git-commit-mode-map
-          "C-c C-g" #'magit-gptcommit-commit-accept)
-
-    ;; Setup for status buffer
     (magit-gptcommit-status-buffer-setup)
-
-    ;; Optional: Enable the mode that watches staged changes and generates automatically
-    ;; (magit-gptcommit-mode 1)
     ))
 
 ;; Keybindings with no package loading dependency
