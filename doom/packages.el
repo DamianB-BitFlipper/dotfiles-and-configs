@@ -49,12 +49,14 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 
-(package! copilot
-  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el" "dist")))
-
 ;; Add syntax highlighting for Dockerfiles
 (package! dockerfile-mode
   :recipe (:host github :repo "spotify/dockerfile-mode" :files ("*.el")))
 
-;; (package! aider-mode
-;;   :recipe (:local-repo "~/Documents/my_code/aider-mode"))
+;; (package! aidermacs :recipe (:host github :repo "DamianB-BitFlipper/aidermacs" :files ("*.el")))
+(package! aidermacs
+  :recipe (:local-repo "~/Documents/my_code/aidermacs" :files ("*.el")))
+
+;; Install magit-gptcommit library
+(package! magit-gptcommit
+  :recipe (:host github :repo "douo/magit-gptcommit" :files ("*.el")))

@@ -54,14 +54,17 @@ aider() {
     local args=(
         "--anthropic-api-key" "$anthropic_api_key"
         "--openai-api-key" "$openai_api_key"
-        "--sonnet"
-        # "--weak-model" "gpt-4o-mini"
         "--architect"
-        #"--cache-prompts"
-        #"--cache-keepalive-pings" "12"
+        # "--model" "o3-mini"
+        # "--reasoning-effort" "high"
+        "--model" "sonnet"
+        "--editor-model" "sonnet"
+        "--cache-prompts"
+        "--cache-keepalive-pings" "12"
         "--no-suggest-shell-commands"
         "--dark-mode"
         "--no-auto-lint"
+        "--watch-files"
     )
 
     if [[ -f ".aider.conventions.md" ]]; then
@@ -71,3 +74,30 @@ aider() {
     $cmd "${args[@]}" "$@"
 }
 eval "$(uv generate-shell-completion zsh)"
+
+# For OpenAI codex
+export OPENAI_API_KEY=$(get_api_key "api.openai.com")
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/damianb/Documents/my_code/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/damianb/Documents/my_code/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/damianb/Documents/my_code/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/damianb/Documents/my_code/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+
+# Function to move aerospace workspace to specified monitor
+move-workspace() {
+  if [[ $# -lt 1 ]]; then
+    echo "Usage: move-workspace <workspace_id> [monitor_id]"
+    echo "If monitor_id is not provided, it will use 'next'"
+    return 1
+  fi
+
+  local workspace_id="$1"
+  local monitor="${2:-next}"
+
+  aerospace move-workspace-to-monitor --workspace "$workspace_id" "$monitor"
+}

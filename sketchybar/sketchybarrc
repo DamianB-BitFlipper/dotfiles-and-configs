@@ -78,13 +78,16 @@ sketchybar --add item battery right \
 sketchybar --add item headphones    right \
            --set headphones script="$PLUGIN_DIR/headphones.sh" \
            label.padding_right=0 \
-           --subscribe headphones bluetooth_change \
+           --subscribe headphones bluetooth_change
 sketchybar --add item wifi right \
            --set wifi script="$PLUGIN_DIR/wifi.sh" \
            update_freq=5
 sketchybar --add item bitcoin right \
            --set bitcoin script="$PLUGIN_DIR/bitcoin.sh" \
            update_freq=120
+sketchybar --add item docker right \
+           --set docker script="$PLUGIN_DIR/docker.sh" \
+           update_freq=5
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update

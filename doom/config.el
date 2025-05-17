@@ -66,15 +66,6 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Accept completion from copilot and fallback to company
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("TAB" . 'copilot-accept-completion)
-              ("<tab>" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
-
 ;; Set up the python DAP debugger
 (after! dap-mode
   ;; Important: Be sure to run M-x dap-cpptools-setup to setup
@@ -237,20 +228,18 @@
       objc-mode
       protobuf-mode)))
 
-;;
-;; Remap some keybindings
-;;
-
 ;; Set the keybindings after package has been loaded
 ;; to overwrite any settings that may have been set
 (after! company
   (map! :map company-active-map
         "TAB" #'company-complete-selection
-        "<tab>" #'company-complete-selection))
+        "<tab>" #'company-complete-selection)
+  (global-company-mode t))
 
-;; The (after! avy) does not work, so just go direct
-(map! :leader
-      :desc "Avy goto char timer" "j" #'avy-goto-char-timer)
+;; If one needs to add more frontends when using company-box
+;; (add-hook 'company-box-mode-hook
+;;           (lambda ()
+;;             (add-to-list 'company-frontends 'company-preview-frontend)))
 
 ;; Disable poetry-tracking-mode in Python buffers
 (after! python
@@ -305,34 +294,89 @@
 ;; Enable visual line mode globally
 (global-visual-line-mode t)
 
-;; Enable and then disable the tool bar so that it shrinks
-(tool-bar-mode t)
-(tool-bar-mode -1)
+;; Disable the helper `which-key' mode since it is extremely slow
+(after! which-key
+  (which-key-mode -1))
 
-;; Enable aider-mode globally
-;; (use-package! aider-mode
-;;   :custom
-;;   (aider-always-add-files '("CONVENTIONS.md"))
-;;   :config
-;;   (setq aider-display-method 'frame)
-;;   (require 'auth-source)
-;;   (let ((credential (auth-source-user-and-password "api.anthropic.com")))
-;;     (setq aider-cli-flags
-;;           (list "--anthropic-api-key" (cadr credential)
-;;                 "--sonnet" "--dark-mode" "--no-auto-lint")))
-;;   (global-aider-mode t))
+(defun shrink-tool-bar ()
+  "Enable and disable tool bar to shrink it."
+  (tool-bar-mode 1)
+  (tool-bar-mode -1))
+
+;; For initial frame at startup
+(shrink-tool-bar)
+
+;; For any new frames created later
+(defun shrink-tool-bar-new-frame (frame)
+  "Enable and disable tool bar to shrink it on FRAME."
+  (with-selected-frame frame
+    (shrink-tool-bar)))
+
+(add-hook 'after-make-frame-functions #'shrink-tool-bar-new-frame)
+
+(use-package aidermacs
+  :config
+  (let ((anthropic-credential (auth-source-user-and-password "api.anthropic.com"))
+        (openai-credential (auth-source-user-and-password "api.openai.com")))
+    (setq aidermacs-use-architect-mode t)
+    (setq aidermacs-architect-model "sonnet")
+    (setq aidermacs-editor-model "sonnet")
+    (setq aidermacs-backend 'vterm)
+    (setq aidermacs-auto-commits t)
+    (setq aidermacs-extra-args
+          (list "--anthropic-api-key" (cadr anthropic-credential)
+                "--openai-api-key" (cadr openai-credential)
+                "--cache-prompts"
+                "--cache-keepalive-pings" "12"
+                "--no-suggest-shell-commands"
+                "--no-auto-lint"
+                "--dark-mode"
+                "--watch-files"))))
+
+(defun my-other-window (&optional arg)
+  "Like `other-window' but tries twice if first window is *aidermacs:...*"
+  (interactive "P")
+  (let ((orig-window (selected-window)))
+    (other-window (or arg 1))
+    (when (and (string-match "^\\*aidermacs:\\(.*?\\)\\*$"
+                             (buffer-name))
+               (not (eq (selected-window) orig-window)))
+      (other-window (or arg 1)))))
+
+(after! llm
+  (setq llm-warn-on-nonfree nil))
+
+(after! magit
+  ;; Configure magit-gptcommit
+  (use-package! magit-gptcommit
+    :init
+    (require 'llm-openai)
+    :custom
+    (magit-gptcommit-llm-provider
+     (make-llm-openai :key (cadr (auth-source-user-and-password "api.openai.com")) :chat-model "gpt-4o-mini"))
+
+    :config
+    (magit-gptcommit-status-buffer-setup)
+    ))
 
 ;; Keybindings with no package loading dependency
 (map! :map 'override
       :desc "Go to beginning of function" "C-M-;" #'beginning-of-defun
       :desc "Go to end of function" "C-M-'" #'end-of-defun
 
+      :desc "Aidermacs other window" "C-x o" #'my-other-window
+
       :leader
       :desc "Compile" "c C" #'compile
       :desc "Recompile" "c c" #'recompile
 
+      :desc "Aider" "a" #'aidermacs-transient-menu
+
+      :desc "Avy goto char timer" "j" #'avy-goto-char-timer
+
       :desc "Vertico Project Search" "s p" #'+vertico/project-search
-      :desc "Vertico Project Search" "s d" #'+vertico/project-search-from-cwd
+      :desc "Vertico Project Search CWD" "s d" #'+vertico/project-search-from-cwd
+      :desc "Projectile Find File" "s f" #'projectile-find-file
 
       :desc "Restore last session" "w r" #'+workspace/restore-last-session
       :desc "Rename workspace" "w R" #'+workspace/rename
