@@ -3,7 +3,7 @@ if [ -d "$HOME/.emacs.d/bin" ]; then
 fi
 
 # Created by `pipx` on 2024-07-01 12:50:58
-export PATH="$PATH:/Users/damianb/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 # For poetry autocompletion
 fpath+=~/.zfunc
@@ -44,7 +44,7 @@ get_api_key() {
 }
 
 aider() {
-    local cmd="/Users/damianb/.local/bin/aider"
+    local cmd="$HOME/.local/bin/aider"
 
     # Read API keys from .authinfo
     local anthropic_api_key=$(get_api_key "api.anthropic.com")
