@@ -97,10 +97,10 @@ alt-shift-c = 'reload-config'
 alt-r = 'mode resize'
 
 [workspace-to-monitor-force-assignment]
-0 = '^P27h-20 \(1\)$'
-1 = '^P27h-20 \(2\)$'
-2 = '^P27h-20 \(1\)$'
-4 = '^P27h-20 \(1\)$'
+0 = '^DELL S2722QC \(2\)$'
+1 = '^DELL S2722QC \(1\)$'
+2 = '^DELL S2722QC \(2\)$'
+4 = '^DELL S2722QC \(2\)$'
 
 [mode.resize.binding]
 left = 'resize width -50'
