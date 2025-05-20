@@ -86,7 +86,9 @@ if [ -f '/Users/damianb/Documents/my_code/google-cloud-sdk/completion.zsh.inc' ]
 
 
 # Load Angular CLI autocompletion.
-source <(ng completion script)
+if [ -x "$(command -v ng)" ]; then
+  source <(ng completion script)
+fi
 
 # Function to move aerospace workspace to specified monitor
 move-workspace() {

@@ -314,34 +314,34 @@
 
 (add-hook 'after-make-frame-functions #'shrink-tool-bar-new-frame)
 
-(use-package aidermacs
-  :config
-  (let ((anthropic-credential (auth-source-user-and-password "api.anthropic.com"))
-        (openai-credential (auth-source-user-and-password "api.openai.com")))
-    (setq aidermacs-use-architect-mode t)
-    (setq aidermacs-architect-model "sonnet")
-    (setq aidermacs-editor-model "sonnet")
-    (setq aidermacs-backend 'vterm)
-    (setq aidermacs-auto-commits t)
-    (setq aidermacs-extra-args
-          (list "--anthropic-api-key" (cadr anthropic-credential)
-                "--openai-api-key" (cadr openai-credential)
-                "--cache-prompts"
-                "--cache-keepalive-pings" "12"
-                "--no-suggest-shell-commands"
-                "--no-auto-lint"
-                "--dark-mode"
-                "--watch-files"))))
+;; (use-package aidermacs
+;;   :config
+;;   (let ((anthropic-credential (auth-source-user-and-password "api.anthropic.com"))
+;;         (openai-credential (auth-source-user-and-password "api.openai.com")))
+;;     (setq aidermacs-use-architect-mode t)
+;;     (setq aidermacs-architect-model "sonnet")
+;;     (setq aidermacs-editor-model "sonnet")
+;;     (setq aidermacs-backend 'vterm)
+;;     (setq aidermacs-auto-commits t)
+;;     (setq aidermacs-extra-args
+;;           (list "--anthropic-api-key" (cadr anthropic-credential)
+;;                 "--openai-api-key" (cadr openai-credential)
+;;                 "--cache-prompts"
+;;                 "--cache-keepalive-pings" "12"
+;;                 "--no-suggest-shell-commands"
+;;                 "--no-auto-lint"
+;;                 "--dark-mode"
+;;                 "--watch-files"))))
 
-(defun my-other-window (&optional arg)
-  "Like `other-window' but tries twice if first window is *aidermacs:...*"
-  (interactive "P")
-  (let ((orig-window (selected-window)))
-    (other-window (or arg 1))
-    (when (and (string-match "^\\*aidermacs:\\(.*?\\)\\*$"
-                             (buffer-name))
-               (not (eq (selected-window) orig-window)))
-      (other-window (or arg 1)))))
+;; (defun my-other-window (&optional arg)
+;;   "Like `other-window' but tries twice if first window is *aidermacs:...*"
+;;   (interactive "P")
+;;   (let ((orig-window (selected-window)))
+;;     (other-window (or arg 1))
+;;     (when (and (string-match "^\\*aidermacs:\\(.*?\\)\\*$"
+;;                              (buffer-name))
+;;                (not (eq (selected-window) orig-window)))
+;;       (other-window (or arg 1)))))
 
 (after! llm
   (setq llm-warn-on-nonfree nil))
@@ -364,13 +364,13 @@
       :desc "Go to beginning of function" "C-M-;" #'beginning-of-defun
       :desc "Go to end of function" "C-M-'" #'end-of-defun
 
-      :desc "Aidermacs other window" "C-x o" #'my-other-window
+      ;; :desc "Aidermacs other window" "C-x o" #'my-other-window
 
       :leader
       :desc "Compile" "c C" #'compile
       :desc "Recompile" "c c" #'recompile
 
-      :desc "Aider" "a" #'aidermacs-transient-menu
+      ;; :desc "Aider" "a" #'aidermacs-transient-menu
 
       :desc "Avy goto char timer" "j" #'avy-goto-char-timer
 

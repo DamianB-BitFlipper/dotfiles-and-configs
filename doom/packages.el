@@ -54,8 +54,8 @@
   :recipe (:host github :repo "spotify/dockerfile-mode" :files ("*.el")))
 
 ;; (package! aidermacs :recipe (:host github :repo "DamianB-BitFlipper/aidermacs" :files ("*.el")))
-(package! aidermacs
-  :recipe (:local-repo "~/Documents/my_code/aidermacs" :files ("*.el")))
+;; (package! aidermacs
+;;   :recipe (:local-repo "~/Documents/my_code/aidermacs" :files ("*.el")))
 
 ;; Install magit-gptcommit library
 (package! magit-gptcommit
