@@ -31,6 +31,9 @@ RPROMPT=\$vcs_info_msg_0_
 zstyle ':vcs_info:git:*' formats '%F{240}(%b)%r%f'
 zstyle ':vcs_info:*' enable git
 
+# Alias to activate a venv
+alias activate="source .venv/bin/activate"
+
 get_api_key() {
     local machine="$1"
     awk -v machine="$machine" '$1 == "machine" && $2 == machine {
