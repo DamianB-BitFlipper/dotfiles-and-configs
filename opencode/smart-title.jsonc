@@ -1,10 +1,4 @@
 {
-  // Enable or disable the plugin
-  "enabled": true,
-
-  // Enable debug logging
-  "debug": false,
-
   // Optional: Use a specific model (otherwise uses smart fallbacks)
   "model": "openai/gpt-5-mini",
 
