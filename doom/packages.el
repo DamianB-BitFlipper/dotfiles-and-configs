@@ -60,3 +60,6 @@
 ;; Install magit-gptcommit library
 (package! magit-gptcommit
   :recipe (:host github :repo "douo/magit-gptcommit" :files ("*.el")))
+
+(package! forge
+  :recipe (:host github :repo "magit/forge" :branch "main"))
