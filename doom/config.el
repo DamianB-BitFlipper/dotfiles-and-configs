@@ -357,7 +357,11 @@
 
     :config
     (magit-gptcommit-status-buffer-setup)
-    ))
+    )
+
+  ;; Configure magit-forge
+  (use-package! forge)
+  )
 
 ;; Keybindings with no package loading dependency
 (map! :map 'override
