@@ -1,4 +1,4 @@
 {
   // Set custom pruning model
-  "model": "xai/grok-4-fast",
+  "model": "opencode/big-pickle",
 }

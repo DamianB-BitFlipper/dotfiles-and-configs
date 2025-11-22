@@ -1,7 +1,4 @@
 {
   // Optional: Use a specific model (otherwise uses smart fallbacks)
-  "model": "xai/grok-4-fast",
-
-  // Update title every N idle events (1 = every time you pause)
-  "updateThreshold": 3
+  "model": "opencode/big-pickle",
 }
