@@ -353,7 +353,7 @@
     (require 'llm-openai)
     :custom
     (magit-gptcommit-llm-provider
-     (make-llm-openai-compatible :url "https://openrouter.ai/api/v1" :key (cadr (auth-source-user-and-password "openrouter.ai")) :chat-model "google/gemma-3n-e4b-it:free"))
+     (make-llm-openai-compatible :url "https://opencode.ai/zen/v1/" :key (cadr (auth-source-user-and-password "opencode.ai")) :chat-model "grok-code"))
 
     :config
     (magit-gptcommit-status-buffer-setup)
