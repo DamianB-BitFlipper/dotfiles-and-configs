@@ -131,11 +131,15 @@
     (require 'llm-openai)
     :custom
     (magit-gptcommit-llm-provider
-     (make-llm-openai :key (cadr (auth-source-user-and-password "api.openai.com")) :chat-model "gpt-4o-mini"))
+     (make-llm-openai-compatible :url "https://opencode.ai/zen/v1/" :key (cadr (auth-source-user-and-password "opencode.ai")) :chat-model "grok-code"))
 
     :config
     (magit-gptcommit-status-buffer-setup)
-    ))
+    )
+
+  ;; Configure magit-forge
+  (use-package! forge)
+  )
 
 ;; Keybindings with no package loading dependency
 (map! :map 'override

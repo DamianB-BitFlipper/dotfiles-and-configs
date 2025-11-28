@@ -1,0 +1,4 @@
+{
+  // Optional: Use a specific model (otherwise uses smart fallbacks)
+  "model": "opencode/big-pickle",
+}

@@ -1,0 +1,4 @@
+{
+  // Set custom pruning model
+  "model": "opencode/big-pickle",
+}
