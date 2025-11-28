@@ -106,3 +106,7 @@ move-workspace() {
 
   aerospace move-workspace-to-monitor --workspace "$workspace_id" "$monitor"
 }
+export PATH=~/.npm-global/bin:$PATH
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+alias claude="/Users/damianb/.claude/local/claude"

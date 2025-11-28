@@ -49,14 +49,6 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 
-;; Add syntax highlighting for Dockerfiles
-(package! dockerfile-mode
-  :recipe (:host github :repo "spotify/dockerfile-mode" :files ("*.el")))
-
-;; (package! aidermacs :recipe (:host github :repo "DamianB-BitFlipper/aidermacs" :files ("*.el")))
-;; (package! aidermacs
-;;   :recipe (:local-repo "~/Documents/my_code/aidermacs" :files ("*.el")))
-
 ;; Install magit-gptcommit library
 (package! magit-gptcommit
   :recipe (:host github :repo "douo/magit-gptcommit" :files ("*.el")))
