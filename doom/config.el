@@ -66,283 +66,61 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Set up the python DAP debugger
-(after! dap-mode
-  ;; Important: Be sure to run M-x dap-cpptools-setup to setup
-  ;; the adapter before using it the first time.
-  (require 'dap-cpptools)
-  (require 'dap-python)
-  (setq dap-python-debugger 'debugpy)
-
-  ;; Make the buffer read-only when dap is running
-  ;; Source: https://emacs-lsp.github.io/dap-mode/page/how-to/#activate-minor-modes-when-stepping-through-code
-  (define-minor-mode +dap-running-session-mode
-    "A mode for adding keybindings to running sessions"
-    nil
-    nil
-    (make-sparse-keymap)
-    nil
-    ;; The following code adds to the dap-terminated-hook
-    ;; so that this minor mode will be deactivated when the debugger finishes
-    (when +dap-running-session-mode
-      ;; Make all buffers in debug mode read only except for the REPL
-      (unless (equal (buffer-name) "*dap-ui-repl*")
-        (read-only-mode 1))
-
-      (let ((session-at-creation (dap--cur-active-session-or-die))
-            (out-buffer-name (format "*%s out*" (dap--debug-session-name (dap--cur-active-session-or-die)))))
-        (when (get-buffer-window out-buffer-name)
-          ;; Expand the output buffer a little
-          (window-resize (select-window (get-buffer-window out-buffer-name) nil) 20 t))
-        (add-hook 'dap-terminated-hook
-                  (lambda (session)
-                    (when (eq session session-at-creation)
-                      (read-only-mode -1)
-                      ;; Kill some stragling buffers that don't get cleaned up
-                      (when (get-buffer "*dap-ui-repl*")
-                        (kill-buffer "*dap-ui-repl*"))
-                      (when (get-buffer out-buffer-name)
-                        (kill-buffer out-buffer-name))
-                      (+dap-running-session-mode -1)))))))
-
-  ;; Activate this minor mode when dap is initialized
-  (add-hook 'dap-session-created-hook '+dap-running-session-mode)
-
-  ;; Activate this minor mode when hitting a breakpoint in another file
-  (add-hook 'dap-stopped-hook '+dap-running-session-mode)
-
-  ;; Activate this minor mode when stepping into code in another file
-  (add-hook 'dap-stack-frame-changed-hook (lambda (session)
-                                            (when (dap--session-running session)
-                                              (+dap-running-session-mode 1))))
-
-  ;; Activate the REPL when the debugger is started
-  (add-hook 'dap-session-created-hook
-            (lambda (arg)
-              (call-interactively #'dap-ui-repl)))
-
-  ;; Move the cursor to the REPL window after the DAP server has responded
-  (add-hook 'dap-executed-hook
-            (lambda (arg1 arg2) (select-window (get-buffer-window "*dap-ui-repl*") nil)))
-
-  ;; Make dap-debugging have some reasonable templates
-  (dap-register-debug-template
-   "C++ :: Debug"
-   (list :type "cppdbg"
-         :request "launch"
-         :name "C++ :: Debug"
-         :MIMode "lldb"
-         :TargetArchitecture "arm64"
-         :program "${fileDirname}/${fileBasenameNoExtension}"
-         :cwd "${workspaceFolder}"))
-
-  (dap-register-debug-template
-   "Python :: Debug"
-   (list :type "python"
-         :args "-m debugpy"
-         :request "launch"
-         :name "Python :: Debug"
-         :module nil
-         :program "${fileDirname}/${fileBasename}"
-         :cwd "${fileDirname}")))
-
-(after! dap-ui
-  (setq dap-ui-buffer-configurations
-        `((,dap-ui--locals-buffer . ((side . right) (slot . 1) (window-width . 0.20)))
-          (,dap-ui--expressions-buffer . ((side . right) (slot . 2) (window-width . 0.20)))
-          (,dap-ui--sessions-buffer . ((side . right) (slot . 3) (window-width . 0.20)))
-          (,dap-ui--breakpoints-buffer . ((side . left) (slot . 2) (window-width . ,treemacs-width)))
-          (,dap-ui--debug-window-buffer . ((side . left) (slot . 3) (window-width . 0.2)))
-          (,dap-ui--repl-buffer . ((side . bottom) (slot . 1) (window-width . 0.2))))))
-
-;; Give dap some reasonable key bindings
-(map! :map dap-mode-map
-      :leader
-      :prefix ("d" . "dap")
-      ;; basics
-      :desc "dap next"          "n" #'dap-next
-      :desc "dap step in"       "i" #'dap-step-in
-      :desc "dap step out"      "o" #'dap-step-out
-      :desc "dap continue"      "c" #'dap-continue
-      :desc "dap hydra"         "h" #'dap-hydra
-      :desc "dap debug restart" "r" #'dap-debug-restart
-      :desc "dap debug start"   "s" #'+debugger/start
-      :desc "dap debug choose"  "S" #'dap-debug
-      :desc "dap debug quit"    "q" #'+debugger/quit
-
-      ;; debug
-      :prefix ("dd" . "Debug")
-      :desc "dap debug recent"  "r" #'dap-debug-recent
-      :desc "dap debug last"    "l" #'dap-debug-last
-
-      ;; eval
-      :prefix ("de" . "Eval")
-      :desc "eval"                "e" #'dap-eval
-      :desc "eval region"         "r" #'dap-eval-region
-      :desc "eval thing at point" "s" #'dap-eval-thing-at-point
-      :desc "add expression"      "a" #'dap-ui-expressions-add
-      :desc "remove expression"   "d" #'dap-ui-expressions-remove
-
-      :prefix ("db" . "Breakpoint")
-      :desc "dap breakpoint toggle"      "b" #'dap-breakpoint-toggle
-      :desc "dap breakpoint condition"   "c" #'dap-breakpoint-condition
-      :desc "dap breakpoint hit count"   "h" #'dap-breakpoint-hit-condition
-      :desc "dap breakpoint log message" "l" #'dap-breakpoint-log-message
-      :desc "dap breakpoint delete"      "d" #'dap-breakpoint-delete
-      :desc "dap breakpoint delete all"  "D" #'dap-breakpoint-delete-all)
-
-(map! :map +dap-running-session-mode-map
-      :desc "next" "C-n" #'dap-next
-      :desc "continue" "C-c" #'dap-continue
-      :desc "step in" "C-i" #'dap-step-in
-      :desc "step out" "C-o" #'dap-step-out
-      :desc "restart" "C-r" #'dap-debug-restart
-      :desc "quit" "C-q" #'+debugger/quit)
-
+;; From `lookup' module.
 ;; Set dash-docs to use the system default browser
 (after! dash-docs
   (setq dash-docs-browser-func #'browse-url))
 
+;; From `magit' module
 ;; Set the recommended length of a single line in a git commit message to 68 characters
 (after! magit
   (setq git-commit-summary-max-length 68)
   (setq magit-todos-insert-after '(bottom)))
 
+;; From `cc' module
 ;; Create a modified Stroustrup style for c/c++ files
 (after! cc-mode
   (c-add-style "modified-stroustrup"
                '("stroustrup"
                  (c-basic-offset . 2)))
-  (setq c-default-style "modified-stroustrup")
+  (setq c-default-style "modified-stroustrup"))
 
-  ;; Set clang-format to use the modified Stroustrup style
-  (set-formatter!
-    'clang-format
-    '("clang-format"
-      (format "--assume-filename=%S" (or buffer-file-name mode-result ""))
-      (format "--style=file:%s/.doom.d/clang-format-modified-stroustrup.yaml" (expand-file-name "~")))
-    :modes
-    '(c-mode
-      c++-mode
-      java-mode
-      objc-mode
-      protobuf-mode)))
-
-;; Set the keybindings after package has been loaded
-;; to overwrite any settings that may have been set
-(after! company
-  (map! :map company-active-map
-        "TAB" #'company-complete-selection
-        "<tab>" #'company-complete-selection)
-  (global-company-mode t))
-
-;; If one needs to add more frontends when using company-box
-;; (add-hook 'company-box-mode-hook
-;;           (lambda ()
-;;             (add-to-list 'company-frontends 'company-preview-frontend)))
-
-;; Disable poetry-tracking-mode in Python buffers
-(after! python
-  (remove-hook 'python-mode-hook #'poetry-tracking-mode))
-
+;; Built-in `autorevert' module
 ;; Enable auto-revert-mode for all buffers
 (after! autorevert
   (global-auto-revert-mode t)
   (setq global-auto-revert-non-file-buffers t)  ; Also auto-revert buffers like dired
   (setq auto-revert-verbose nil))                ; Don't show a message every time a buffer is reverted
 
+;; From `spell' module
 ;; Set the default ispell dictionary to en_US
 (after! ispell
   (setq ispell-dictionary "en_US"))
 
-;; Enable lsp-pyright for python files
-(use-package! lsp-pyright
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp)))  ; or lsp-deferred
-  :config
-  ;; Set the venv path to the .venv directory if it exists in
-  ;; the git root or current directory if not in a git repo
-  (defun lsp-pyright-set-venv-path ()
-    (let* ((git-root (locate-dominating-file default-directory ".git"))
-           (venv-path ".venv")
-           (full-venv-path (if git-root
-                               (expand-file-name venv-path git-root)
-                             (expand-file-name venv-path default-directory))))
-      (when (file-directory-p full-venv-path)
-        (setq-local lsp-pyright-venv-path full-venv-path))))
-
-  ;; Set the venv path before LSP is initialized
-  (add-hook 'lsp-before-open-hook
-            (lambda ()
-              (when (eq major-mode 'python-mode)
-                (lsp-pyright-set-venv-path)))))
-
+;; Built-in `auth-source' module
 ;; Set the auth-source files
 (after! auth-source
   (setq auth-sources '("~/.authinfo" "~/.authinfo.gpg")))
 
+;; From `markdown' module
 ;; Set up grip
 (use-package! grip-mode
   :config
-  (setq grip-update-after-change nil)
   (require 'auth-source)
   (let ((credential (auth-source-user-and-password "api.github.com")))
     (setq grip-github-user (car credential)
           grip-github-password (cadr credential))))
 
+;; Emacs built-in
 ;; Enable visual line mode globally
 (global-visual-line-mode t)
 
+;; Doom Emacs built-in
 ;; Disable the helper `which-key' mode since it is extremely slow
 (after! which-key
   (which-key-mode -1))
 
-(defun shrink-tool-bar ()
-  "Enable and disable tool bar to shrink it."
-  (tool-bar-mode 1)
-  (tool-bar-mode -1))
-
-;; For initial frame at startup
-(shrink-tool-bar)
-
-;; For any new frames created later
-(defun shrink-tool-bar-new-frame (frame)
-  "Enable and disable tool bar to shrink it on FRAME."
-  (with-selected-frame frame
-    (shrink-tool-bar)))
-
-(add-hook 'after-make-frame-functions #'shrink-tool-bar-new-frame)
-
-;; (use-package aidermacs
-;;   :config
-;;   (let ((anthropic-credential (auth-source-user-and-password "api.anthropic.com"))
-;;         (openai-credential (auth-source-user-and-password "api.openai.com")))
-;;     (setq aidermacs-use-architect-mode t)
-;;     (setq aidermacs-architect-model "sonnet")
-;;     (setq aidermacs-editor-model "sonnet")
-;;     (setq aidermacs-backend 'vterm)
-;;     (setq aidermacs-auto-commits t)
-;;     (setq aidermacs-extra-args
-;;           (list "--anthropic-api-key" (cadr anthropic-credential)
-;;                 "--openai-api-key" (cadr openai-credential)
-;;                 "--cache-prompts"
-;;                 "--cache-keepalive-pings" "12"
-;;                 "--no-suggest-shell-commands"
-;;                 "--no-auto-lint"
-;;                 "--dark-mode"
-;;                 "--watch-files"))))
-
-;; (defun my-other-window (&optional arg)
-;;   "Like `other-window' but tries twice if first window is *aidermacs:...*"
-;;   (interactive "P")
-;;   (let ((orig-window (selected-window)))
-;;     (other-window (or arg 1))
-;;     (when (and (string-match "^\\*aidermacs:\\(.*?\\)\\*$"
-;;                              (buffer-name))
-;;                (not (eq (selected-window) orig-window)))
-;;       (other-window (or arg 1)))))
-
+;; From `magit-gptcommit' package
 (after! llm
   (setq llm-warn-on-nonfree nil))
 
@@ -360,21 +138,16 @@
     )
 
   ;; Configure magit-forge
-  (use-package! forge)
-  )
+  (use-package! forge))
 
 ;; Keybindings with no package loading dependency
 (map! :map 'override
       :desc "Go to beginning of function" "C-M-;" #'beginning-of-defun
       :desc "Go to end of function" "C-M-'" #'end-of-defun
 
-      ;; :desc "Aidermacs other window" "C-x o" #'my-other-window
-
       :leader
       :desc "Compile" "c C" #'compile
       :desc "Recompile" "c c" #'recompile
-
-      ;; :desc "Aider" "a" #'aidermacs-transient-menu
 
       :desc "Avy goto char timer" "j" #'avy-goto-char-timer
 
@@ -388,14 +161,23 @@
       :desc "Switch to right workspace" "w <right>" #'+workspace/switch-right)
 
 ;; Custom variables
-(setq kill-whole-line t
-      tab-always-indent t
-      display-line-numbers-type t
-      org-directory "~/org/"
+(setq!
+ ;; If killing a line from the begging, also kill any trailing newlines
+ kill-whole-line t
 
-      ;; Make the command key the M meta and option super ('s')
-      mac-command-modifier 'meta
-      mac-option-modifier 'super
+ ;; Hitting <TAB> tries to indent first, if already indented
+ ;; then sends signal for possible tab completion
+ tab-always-indent t
 
-      ;; Disable auto-comments
-      comment-line-break-function nil)
+ ;; Display lines as absolute numbers
+ display-line-numbers-type t
+
+ ;; Tells org where org files live for agenda management
+ org-directory "~/.emacs-org/"
+
+ ;; Make the command key the M meta and option super ('s')
+ mac-command-modifier 'meta
+ mac-option-modifier 'super
+
+ ;; Disable auto-comments when on a comment and hitting newline
+ comment-line-break-function nil)
