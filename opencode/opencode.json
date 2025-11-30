@@ -6,7 +6,7 @@
       "enabled": true
     }
   },
-  "plugin": ["opencode-openai-codex-auth", "@tarquinen/opencode-smart-title", "@tarquinen/opencode-dcp"],
+  "plugin": ["@openhax/codex@0.4.4", "@tarquinen/opencode-smart-title", "@tarquinen/opencode-dcp"],
   "provider": {
     "openai": {
       "options": {

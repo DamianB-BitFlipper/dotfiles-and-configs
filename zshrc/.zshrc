@@ -106,3 +106,8 @@ move-workspace() {
 
   aerospace move-workspace-to-monitor --workspace "$workspace_id" "$monitor"
 }
+
+# Utility function to automatically record stout/stderr output to the clipboard
+clip() {
+  { "$@" 2>&1 | tee /dev/tty | pbcopy; }
+}
