@@ -12,12 +12,12 @@ ZSH_THEME=""
 plugins=(
     direnv
     docker
+    fzf
     gcloud
     git
     lol
     pyautoenv
     thefuck
-    z
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
@@ -58,6 +58,9 @@ eval "$(uv generate-shell-completion zsh)"
 if [ -x "$(command -v ng)" ]; then
     source <(ng completion script)
 fi
+
+# zoxide (must be after compinit)
+eval "$(zoxide init zsh)"
 
 # ==============================================================================
 # Aliases

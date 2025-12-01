@@ -33,6 +33,8 @@ git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 - `pipx`
 - `uv`
 - `direnv`
+- `fzf` (`brew install fzf`)
+- `zoxide` (`brew install zoxide`)
 - `opencode`
 
 ### Optional
