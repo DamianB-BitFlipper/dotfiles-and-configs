@@ -8,6 +8,14 @@ Symlink the configuration to `$HOME/.zshrc`:
 ln -sf $HOME/.config/zshrc/.oh-my-zshrc $HOME/.zshrc
 ```
 
+### pyautoenv Plugin
+
+Clone pyautoenv into Oh My Zsh custom plugins:
+
+```sh
+git clone git@github.com:hsaunders1904/pyautoenv.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/pyautoenv
+```
+
 ## Requirements
 
 - [Oh My Zsh](https://ohmyz.sh/)

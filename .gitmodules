@@ -1,3 +1,0 @@
-[submodule "zshrc/pyautoenv"]
-	path = zshrc/pyautoenv
-	url = git@github.com:hsaunders1904/pyautoenv.git

@@ -4,16 +4,10 @@ This repository contains the dotfiles and configuration files of my daily develo
 
 ## Installation
 
-Clone this repository with submodules:
+Clone this repository:
 
 ```bash
-git clone --recurse-submodules git@github.com:DamianB-BitFlipper/dotfiles-and-configs.git ~/.config
-```
-
-If you've already cloned without submodules, initialize them with:
-
-```bash
-git submodule update --init --recursive
+git clone git@github.com:DamianB-BitFlipper/dotfiles-and-configs.git ~/.config
 ```
 
 ## Authentication
