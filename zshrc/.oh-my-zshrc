@@ -1,4 +1,20 @@
 # ==============================================================================
+# Oh My Zsh Configuration
+# ==============================================================================
+
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Theme
+ZSH_THEME="robbyrussell"
+
+# Plugins
+plugins=(git)
+
+# Load Oh My Zsh
+source $ZSH/oh-my-zsh.sh
+
+# ==============================================================================
 # PATH Configuration
 # ==============================================================================
 
@@ -17,9 +33,6 @@ export PATH="$HOME/.opencode/bin:$PATH"
 # Completion System
 # ==============================================================================
 
-# Initialize zsh completion system
-autoload -Uz compinit && compinit
-
 # uv shell completion
 eval "$(uv generate-shell-completion zsh)"
 
@@ -27,25 +40,6 @@ eval "$(uv generate-shell-completion zsh)"
 if [ -x "$(command -v ng)" ]; then
     source <(ng completion script)
 fi
-
-# ==============================================================================
-# Prompt Configuration
-# ==============================================================================
-
-setopt PROMPT_SUBST
-autoload -U colors && colors
-
-# Main prompt: user@host directory
-PROMPT='%F{cyan}%n%f@%F{magenta}%m%f %F{green}%~%f %# '
-
-# Git branch info in right prompt
-autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-setopt prompt_subst
-RPROMPT=\$vcs_info_msg_0_
-zstyle ':vcs_info:git:*' formats '%F{240}(%b)%r%f'
-zstyle ':vcs_info:*' enable git
 
 # ==============================================================================
 # Tool Hooks & Integrations
