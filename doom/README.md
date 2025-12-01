@@ -8,6 +8,10 @@ Be sure to ln this directory to `$HOME/.doom.d`.
 
 `ln -s $HOME/.config/doom $HOME/.doom.d`.
 
+## Copilot API
+
+The `magit-gptcommit-llm-provider` uses the locally hosted copilot API. To set up, refer to the **Smart Suggestions** section of the zshrc README.
+
 ## Installation
 - Enable `dap-mode` and then be sure to run `M-x dap-cpptools-setup` to setup the adapter before using it the first time.
 - Run `doom sync` followed by `doom doctor`. Install any missing dependencies reported by doom doctor.
