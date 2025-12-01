@@ -131,7 +131,7 @@
     (require 'llm-openai)
     :custom
     (magit-gptcommit-llm-provider
-     (make-llm-openai-compatible :url "https://opencode.ai/zen/v1/" :key (cadr (auth-source-user-and-password "opencode.ai")) :chat-model "grok-code"))
+     (make-llm-openai-compatible :url "http://localhost:4141" :key "no-api-key" :chat-model "claude-haiku-4.5"))
 
     :config
     (magit-gptcommit-status-buffer-setup)
