@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <!-- A unique label -->
+    <key>Label</key>
+    <string>com.damianb-bitflipper.copilot-api</string>
+
+    <!-- Command to run -->
+    <key>ProgramArguments</key>
+    <array>
+      <string>/opt/homebrew/bin/copilot-api</string>
+      <string>start</string>
+    </array>
+
+    <!-- Start on login -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- Restart on crash -->
+    <key>KeepAlive</key>
+    <true/>
+
+    <!-- Optional: where logs go -->
+    <key>StandardOutPath</key>
+    <string>/Users/damianb/Library/Logs/copilot-api.out.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/damianb/Library/Logs/copilot-api.err.log</string>
+  </dict>
+</plist>

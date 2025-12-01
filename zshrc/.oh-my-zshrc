@@ -13,6 +13,8 @@ export SMART_SUGGESTION_PROVIDER_FILE="$HOME/.config/smart-suggestion/config.jso
 
 # Plugins
 plugins=(
+    copyfile
+    copypath
     direnv
     docker
     fzf
@@ -65,9 +67,6 @@ fi
 
 # zoxide (must be after compinit)
 eval "$(zoxide init zsh)"
-
-# atuin (shell history)
-eval "$(atuin init zsh)"
 
 # ==============================================================================
 # Aliases
