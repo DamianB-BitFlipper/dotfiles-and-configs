@@ -2,23 +2,15 @@
 
 ## Configuration
 
-Two zshrc files are available:
-
-- `.zshrc` - Standalone zsh configuration (no framework)
-- `.oh-my-zshrc` - Oh My Zsh compatible configuration
-
-Symlink your preferred configuration to `$HOME/.zshrc`:
+Symlink the configuration to `$HOME/.zshrc`:
 
 ```sh
-# For standalone zsh
-ln -sf $HOME/.config/zshrc/.zshrc $HOME/.zshrc
-
-# For Oh My Zsh
 ln -sf $HOME/.config/zshrc/.oh-my-zshrc $HOME/.zshrc
 ```
 
 ## Requirements
 
+- [Oh My Zsh](https://ohmyz.sh/)
 - `pipx`
 - `uv`
 - `direnv`
@@ -26,7 +18,6 @@ ln -sf $HOME/.config/zshrc/.oh-my-zshrc $HOME/.zshrc
 
 ### Optional
 
-- [Oh My Zsh](https://ohmyz.sh/) (for `.oh-my-zshrc`)
 - `ng` (Angular CLI)
 - Google Cloud SDK
 
