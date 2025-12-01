@@ -20,3 +20,5 @@
 !opencode/**
 !vimium/
 !vimium/**
+!smart-suggestion/
+!smart-suggestion/**
