@@ -5,16 +5,18 @@
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Theme
-ZSH_THEME="robbyrussell"
+# Theme (disabled - using Pure theme below)
+ZSH_THEME=""
 
 # Plugins
 plugins=(
-    git
     direnv
+    docker
     gcloud
+    git
     lol
     pyautoenv
+    thefuck
     z
     zsh-autosuggestions
     zsh-syntax-highlighting
@@ -22,6 +24,13 @@ plugins=(
 
 # Load Oh My Zsh
 source $ZSH/oh-my-zsh.sh
+
+# Pure theme
+# NOTE: oh-my-zsh overrides the prompt so Pure must be activated after source $ZSH/oh-my-zsh.sh.
+fpath+=($HOME/.zsh/pure)
+autoload -U promptinit; promptinit
+PURE_PROMPT_SYMBOL=λ
+prompt pure
 
 # ==============================================================================
 # PATH Configuration
