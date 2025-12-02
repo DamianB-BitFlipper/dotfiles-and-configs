@@ -1,0 +1,37 @@
+# General
+
+theme = Homebrew
+
+font-size = 10
+mouse-hide-while-typing = true
+confirm-close-surface = false
+
+# Copy on text select to the system clipboard
+copy-on-select = clipboard
+
+# Macos specific
+
+macos-titlebar-style = tabs
+
+keybind = super+shift+r=reload_config
+
+# ------ Emacs-like keybindings ------
+
+keybind = ctrl+x>2=new_split:down
+keybind = ctrl+x>3=new_split:right
+keybind = ctrl+x>k=close_surface
+
+keybind = ctrl+x>5>2=new_window
+
+keybind = super+left=goto_split:previous
+keybind = super+right=goto_split:next
+keybind = ctrl+x>o=goto_split:next
+
+keybind = ctrl+x>b=new_tab
+keybind = ctrl+super+left=previous_tab
+keybind = ctrl+super+right=next_tab
+
+keybind = super+shift+,=scroll_to_top
+keybind = super+shift+.=scroll_to_bottom
+keybind = ctrl+up=scroll_page_fractional:-0.3
+keybind = ctrl+down=scroll_page_fractional:0.3

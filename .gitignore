@@ -22,3 +22,5 @@
 !vimium/**
 !smart-suggestion/
 !smart-suggestion/**
+!ghostty/
+!ghostty/**
