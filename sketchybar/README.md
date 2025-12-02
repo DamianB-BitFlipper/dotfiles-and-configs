@@ -8,3 +8,11 @@ Fonts will be broken and need to be installed.
 `brew install --cask font-hack-nerd-font`
 
 To reload `sketchybar` when the configuration has been changed use: `sketchybar --reload`
+
+## WiFi Name
+
+To get the WiFi name to display correctly, you need to enable verbose mode for ipconfig:
+
+```bash
+sudo ipconfig setverbose 1
+```

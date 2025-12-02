@@ -54,6 +54,10 @@ prompt pure
 # PATH Configuration
 # ==============================================================================
 
+# Go
+export GOPATH=$HOME/.go
+export PATH="$GOPATH/bin:$PATH"
+
 # Doom Emacs
 if [ -d "$HOME/.emacs.d/bin" ]; then
     PATH="$HOME/.emacs.d/bin:$PATH"
