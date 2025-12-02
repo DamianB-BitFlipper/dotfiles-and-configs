@@ -34,8 +34,20 @@ source $ZSH/oh-my-zsh.sh
 # Pure theme
 # NOTE: oh-my-zsh overrides the prompt so Pure must be activated after source $ZSH/oh-my-zsh.sh.
 fpath+=($HOME/.zsh/pure)
+
+# Pure also prints newlines between commands. This hack disables the `print`
+# command when called from `prompt_pure_precmd`
+print() {
+  [ 0 -eq $# -a "prompt_pure_precmd" = "${funcstack[-1]}" ] || builtin print "$@";
+}
+
 autoload -U promptinit; promptinit
 PURE_PROMPT_SYMBOL=λ
+
+# Change some of the colors
+zstyle ':prompt:pure:path' color default
+zstyle ':prompt:pure:prompt:success' color default
+
 prompt pure
 
 # ==============================================================================

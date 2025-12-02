@@ -115,11 +115,6 @@
 ;; Enable visual line mode globally
 (global-visual-line-mode t)
 
-;; Doom Emacs built-in
-;; Disable the helper `which-key' mode since it is extremely slow
-(after! which-key
-  (which-key-mode -1))
-
 ;; From `magit-gptcommit' package
 (after! llm
   (setq llm-warn-on-nonfree nil))

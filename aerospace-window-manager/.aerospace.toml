@@ -25,6 +25,21 @@ exec-on-workspace-change = ['/bin/bash', '-c',
     'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
 
+# Ghostty aerospace workaround
+# https://ghostty.org/docs/help/macos-tiling-wms#aerospace
+[[on-window-detected]]
+if.app-id="com.mitchellh.ghostty"
+run= [
+  "layout floating",
+]
+
+# Finder tabs also have difficulty with aerospace
+[[on-window-detected]]
+if.app-id = "com.apple.finder"
+run = [
+  "layout floating",
+]
+
 [mode.main.binding]
 # See: https://nikitabobko.github.io/AeroSpace/goodies#open-a-new-window-with-applescript
 alt-f = '''exec-and-forget osascript -e 'tell application "Finder"
