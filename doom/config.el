@@ -66,6 +66,13 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; From `company' module
+;; Force company-mode to complete on TAB rather than cycle to next option
+(after! company
+  (map! :map company-active-map
+        "TAB" #'company-complete-selection
+        "<tab>" #'company-complete-selection))
+
 ;; From `lookup' module.
 ;; Set dash-docs to use the system default browser
 (after! dash-docs
