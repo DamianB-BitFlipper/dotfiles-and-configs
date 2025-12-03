@@ -52,3 +52,5 @@
 ;; Install magit-gptcommit library
 (package! magit-gptcommit
   :recipe (:host github :repo "douo/magit-gptcommit" :files ("*.el")))
+
+(package! harpoon)

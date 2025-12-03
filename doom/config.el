@@ -142,16 +142,61 @@
   ;; Configure magit-forge
   (use-package! forge))
 
+;; harpoon.el keybindings
+(map! :map 'override
+      :desc "Harpoon go to 1" "M-1" #'harpoon-go-to-1
+      :desc "Harpoon go to 2" "M-2" #'harpoon-go-to-2
+      :desc "Harpoon go to 3" "M-3" #'harpoon-go-to-3
+      :desc "Harpoon go to 4" "M-4" #'harpoon-go-to-4
+      :desc "Harpoon go to 5" "M-5" #'harpoon-go-to-5
+      :desc "Harpoon go to 6" "M-6" #'harpoon-go-to-6
+      :desc "Harpoon go to 7" "M-7" #'harpoon-go-to-7
+      :desc "Harpoon go to 8" "M-8" #'harpoon-go-to-8
+      :desc "Harpoon go to 9" "M-9" #'harpoon-go-to-9
+
+      :desc "Harpoon delete 1" "M-S-1" #'harpoon-delete-1
+      :desc "Harpoon delete 2" "M-S-2" #'harpoon-delete-2
+      :desc "Harpoon delete 3" "M-S-3" #'harpoon-delete-3
+      :desc "Harpoon delete 4" "M-S-4" #'harpoon-delete-4
+      :desc "Harpoon delete 5" "M-S-5" #'harpoon-delete-5
+      :desc "Harpoon delete 6" "M-S-6" #'harpoon-delete-6
+      :desc "Harpoon delete 7" "M-S-7" #'harpoon-delete-7
+      :desc "Harpoon delete 8" "M-S-8" #'harpoon-delete-8
+      :desc "Harpoon delete 9" "M-S-9" #'harpoon-delete-9
+
+      :desc "Harpoon add file"    "M-`" #'harpoon-add-file
+      :desc "Harpoon clear"       "M-0" #'harpoon-clear
+      :desc "Harpoon toggle file" "M--" #'harpoon-toggle-file)
+
+;; avy keybindings
+(map! :map 'override
+      :desc "Avy goto char timer" "C-j" #'avy-goto-char-timer
+      :desc "Avy goto char timer" "M-j k" #'avy-goto-char-in-line
+      :desc "Avy goto char timer" "M-j K" #'avy-goto-char-2      
+      :desc "Avy goto char timer" "M-j l" #'avy-goto-line
+      :desc "Avy goto char timer" "M-j L" #'avy-goto-end-of-line)
+
+;; python mode overrides
+(map! :after python
+      :map python-mode-map
+      :desc "Python forward block" "M-<right>" #'python-nav-forward-statement
+      :desc "Python backward block" "M-<left>" #'python-nav-backward-statement
+      :desc "Python forward block" "M-<down>" #'python-nav-forward-block
+      :desc "Python backward block" "M-<up>" #'python-nav-backward-block
+      :desc "Python forward defun" "C-M-<down>" #'end-of-defun
+      :desc "Python backward defun" "C-M-<up>" #'beginning-of-defun
+      )
+
 ;; Keybindings with no package loading dependency
 (map! :map 'override
       :desc "Go to beginning of function" "C-M-;" #'beginning-of-defun
       :desc "Go to end of function" "C-M-'" #'end-of-defun
 
-      :leader
+      :leader ;;  C-c
+      :desc "Toggle Demap" "o m" #'demap-toggle
+      
       :desc "Compile" "c C" #'compile
       :desc "Recompile" "c c" #'recompile
-
-      :desc "Avy goto char timer" "j" #'avy-goto-char-timer
 
       :desc "Vertico Project Search" "s p" #'+vertico/project-search
       :desc "Vertico Project Search CWD" "s d" #'+vertico/project-search-from-cwd
@@ -161,6 +206,11 @@
       :desc "Rename workspace" "w R" #'+workspace/rename
       :desc "Switch to left workspace" "w <left>"#'+workspace/switch-left
       :desc "Switch to right workspace" "w <right>" #'+workspace/switch-right)
+
+;; Unmap any unneeded keybindings
+(map! :map 'override
+      :leader ;; C-c
+      "t m" nil)
 
 ;; Custom variables
 (setq!
@@ -182,4 +232,7 @@
  mac-option-modifier 'super
 
  ;; Disable auto-comments when on a comment and hitting newline
- comment-line-break-function nil)
+ comment-line-break-function nil
+
+ ;; Wait time for avg-goto-char-timer
+ avy-timeout-seconds 0.25)
