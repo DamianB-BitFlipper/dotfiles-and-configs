@@ -49,6 +49,9 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 
+;; drag-stuff.el is not very useful and uses valueable keybindings
+(package! drag-stuff :disable t)
+
 ;; Install magit-gptcommit library
 (package! magit-gptcommit
   :recipe (:host github :repo "DamianB-BitFlipper/magit-gptcommit" :files ("*.el")))
