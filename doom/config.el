@@ -158,17 +158,16 @@
       :desc "Harpoon go to 8" "M-8" #'harpoon-go-to-8
       :desc "Harpoon go to 9" "M-9" #'harpoon-go-to-9
 
-      :desc "Harpoon delete 1" "M-!" #'harpoon-delete-1
-      :desc "Harpoon delete 2" "M-S-2" #'harpoon-delete-2
-      :desc "Harpoon delete 3" "M-S-3" #'harpoon-delete-3
-      :desc "Harpoon delete 4" "M-S-4" #'harpoon-delete-4
-      :desc "Harpoon delete 5" "M-S-5" #'harpoon-delete-5
-      :desc "Harpoon delete 6" "M-S-6" #'harpoon-delete-6
-      :desc "Harpoon delete 7" "M-S-7" #'harpoon-delete-7
-      :desc "Harpoon delete 8" "M-S-8" #'harpoon-delete-8
-      :desc "Harpoon delete 9" "M-S-9" #'harpoon-delete-9
+      :desc "Harpoon assign to 1" "M-!" #'harpoon-assign-to-1
+      :desc "Harpoon assign to 2" "M-@" #'harpoon-assign-to-2
+      :desc "Harpoon assign to 3" "M-#" #'harpoon-assign-to-3
+      :desc "Harpoon assign to 4" "M-$" #'harpoon-assign-to-4
+      :desc "Harpoon assign to 5" "M-%" #'harpoon-assign-to-5
+      :desc "Harpoon assign to 6" "M-^" #'harpoon-assign-to-6
+      :desc "Harpoon assign to 7" "M-&" #'harpoon-assign-to-7
+      :desc "Harpoon assign to 8" "M-*" #'harpoon-assign-to-8
+      :desc "Harpoon assign to 9" "M-(" #'harpoon-assign-to-9
 
-      :desc "Harpoon add file"    "M-`" #'harpoon-add-file
       :desc "Harpoon clear"       "M-0" #'harpoon-clear
       :desc "Harpoon toggle file" "M--" #'harpoon-toggle-quick-menu)
 
