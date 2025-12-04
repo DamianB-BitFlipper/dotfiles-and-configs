@@ -2,6 +2,11 @@
 
 theme = Homebrew
 
+# Unfocused split: do not add overlay
+unfocused-split-opacity = 1
+# Homebrew dirty yellow
+split-divider-color = #999900
+
 font-size = 10
 mouse-hide-while-typing = true
 confirm-close-surface = false
