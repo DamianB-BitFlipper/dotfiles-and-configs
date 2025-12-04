@@ -7,7 +7,7 @@
       "enabled": true
     }
   },
-  "plugin": ["@openhax/codex@0.4.4", "@tarquinen/opencode-smart-title", "@tarquinen/opencode-dcp"],
+  "plugin": ["@openhax/codex@0.4.4", "@tarquinen/opencode-smart-title", "@tarquinen/opencode-dcp@0.4.1"],
   "provider": {
     "openai": {
       "options": {
@@ -134,6 +134,7 @@
     }
   },
   "keybinds": {
+    "sidebar_toggle": "ctrl+b",
     "session_child_cycle": "ctrl+;",
     "session_child_cycle_reverse": "ctrl+l",
     "model_list": "ctrl+m",

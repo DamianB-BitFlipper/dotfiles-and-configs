@@ -79,10 +79,24 @@
   (setq dash-docs-browser-func #'browse-url))
 
 ;; From `magit' module
-;; Set the recommended length of a single line in a git commit message to 68 characters
 (after! magit
+  ;; Set the recommended length of a single line in a git commit message to 68 characters
   (setq git-commit-summary-max-length 68)
-  (setq magit-todos-insert-after '(bottom)))
+  (setq magit-todos-insert-after '(bottom))
+
+  ;; Configure magit-gptcommit
+  (use-package! magit-gptcommit
+    :init
+    (require 'llm-openai)
+    :custom
+    (magit-gptcommit-llm-provider
+     (make-llm-openai-compatible :url "http://localhost:4141" :key "no-api-key" :chat-model "claude-haiku-4.5"))
+    :config
+    (magit-gptcommit-mode 1)
+    (magit-gptcommit-status-buffer-setup))
+
+  ;; Configure magit-forge
+  (use-package! forge))
 
 ;; From `cc' module
 ;; Create a modified Stroustrup style for c/c++ files
@@ -126,22 +140,6 @@
 (after! llm
   (setq llm-warn-on-nonfree nil))
 
-(after! magit
-  ;; Configure magit-gptcommit
-  (use-package! magit-gptcommit
-    :init
-    (require 'llm-openai)
-    :custom
-    (magit-gptcommit-llm-provider
-     (make-llm-openai-compatible :url "http://localhost:4141" :key "no-api-key" :chat-model "claude-haiku-4.5"))
-
-    :config
-    (magit-gptcommit-status-buffer-setup)
-    )
-
-  ;; Configure magit-forge
-  (use-package! forge))
-
 ;; harpoon.el keybindings
 (map! :map 'override
       :desc "Harpoon go to 1" "M-1" #'harpoon-go-to-1
@@ -154,7 +152,7 @@
       :desc "Harpoon go to 8" "M-8" #'harpoon-go-to-8
       :desc "Harpoon go to 9" "M-9" #'harpoon-go-to-9
 
-      :desc "Harpoon delete 1" "M-S-1" #'harpoon-delete-1
+      :desc "Harpoon delete 1" "M-!" #'harpoon-delete-1
       :desc "Harpoon delete 2" "M-S-2" #'harpoon-delete-2
       :desc "Harpoon delete 3" "M-S-3" #'harpoon-delete-3
       :desc "Harpoon delete 4" "M-S-4" #'harpoon-delete-4
@@ -166,10 +164,10 @@
 
       :desc "Harpoon add file"    "M-`" #'harpoon-add-file
       :desc "Harpoon clear"       "M-0" #'harpoon-clear
-      :desc "Harpoon toggle file" "M--" #'harpoon-toggle-file)
+      :desc "Harpoon toggle file" "M--" #'harpoon-toggle-quick-menu)
 
 ;; avy keybindings
-(map! :map 'override
+(map! :map global-map
       :desc "Avy goto char timer" "C-j" #'avy-goto-char-timer
       :desc "Avy goto char timer" "M-j k" #'avy-goto-char-in-line
       :desc "Avy goto char timer" "M-j K" #'avy-goto-char-2      
