@@ -66,6 +66,12 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; Doom internal overrides
+(after! doom
+  (advice-add 'doom/quickload-session :around
+              (lambda (orig-fn &rest _args)
+                (funcall orig-fn t))))
+
 ;; From `company' module
 ;; Force company-mode to complete on TAB rather than cycle to next option
 (after! company
@@ -190,6 +196,8 @@
       :desc "Go to beginning of function" "C-M-;" #'beginning-of-defun
       :desc "Go to end of function" "C-M-'" #'end-of-defun
 
+      :desc "Kill whole line" "C-S-k" #'kill-whole-line
+      
       :leader ;;  C-c
       :desc "Toggle Demap" "o m" #'demap-toggle
       
@@ -206,12 +214,20 @@
       :desc "Switch to right workspace" "w <right>" #'+workspace/switch-right)
 
 ;; Unmap any unneeded keybindings
-(map! :map 'override
-      :leader ;; C-c
-      "t m" nil)
+(map! :map ctl-x-map
+      "C-c" nil ;; Prefer to kill emacs via `C-c q q'
+      )
+
+(map! :map 'override      
+      :leader ;; C-c      
+      "t m" nil ;; `demap-toggle' default keybinding
+      )
 
 ;; Custom variables
 (setq!
+ ;; Do not prompt when killing emacs
+ confirm-kill-emacs nil
+ 
  ;; If killing a line from the begging, also kill any trailing newlines
  kill-whole-line t
 
