@@ -64,10 +64,8 @@
 ;;            :files ("*.el")
 ;;            :build (:not compile)))
 
-;; (package! harpoon)
-
-(package! harpoon
+(package! javelin
   :recipe (
-           :local-repo "~/code/miniprojects/harpoon.el"
+           :local-repo "~/code/miniprojects/javelin.el"
            :build (:not compile)))
 
