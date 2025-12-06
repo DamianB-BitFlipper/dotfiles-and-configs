@@ -181,7 +181,7 @@
 
 ;; python mode overrides
 (map! :after python
-      :map python-mode-map
+      :map (python-mode-map python-ts-mode-map)
       :desc "Python forward block" "M-<right>" #'python-nav-forward-statement
       :desc "Python backward block" "M-<left>" #'python-nav-backward-statement
       :desc "Python forward block" "M-<down>" #'python-nav-forward-block

@@ -54,7 +54,7 @@
 
 ;; Install magit-gptcommit library
 (package! magit-gptcommit
-  :recipe (:host github :repo "DamianB-BitFlipper/magit-gptcommit" :files ("*.el")))
+  :recipe (:host github :repo "DamianB-BitFlipper/magit-gptcommit"))
 
 ;; For local dev, do not compile so that `eval-buffer'/`doom/reload '
 ;; can be used to reload the package for testing
@@ -69,6 +69,5 @@
 (package! harpoon
   :recipe (
            :local-repo "~/code/miniprojects/harpoon.el"
-           :files ("*.el")
            :build (:not compile)))
 
