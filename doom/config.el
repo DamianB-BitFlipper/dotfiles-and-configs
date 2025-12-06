@@ -104,6 +104,11 @@
   ;; Configure magit-forge
   (use-package! forge))
 
+;; From `javelin' package
+(use-package! javelin
+  :config
+  (global-javelin-minor-mode 1))
+
 ;; From `cc' module
 ;; Create a modified Stroustrup style for c/c++ files
 (after! cc-mode
