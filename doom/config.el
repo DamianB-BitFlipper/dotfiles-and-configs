@@ -158,17 +158,17 @@
       :desc "Harpoon go to 8" "M-8" #'harpoon-go-or-assign-to-8
       :desc "Harpoon go to 9" "M-9" #'harpoon-go-or-assign-to-9
 
-      :desc "Harpoon assign to 1" "M-!" #'harpoon-delete-1
-      :desc "Harpoon assign to 2" "M-@" #'harpoon-delete-2
-      :desc "Harpoon assign to 3" "M-#" #'harpoon-delete-3
-      :desc "Harpoon assign to 4" "M-$" #'harpoon-delete-4
-      :desc "Harpoon assign to 5" "M-%" #'harpoon-delete-5
-      :desc "Harpoon assign to 6" "M-^" #'harpoon-delete-6
-      :desc "Harpoon assign to 7" "M-&" #'harpoon-delete-7
-      :desc "Harpoon assign to 8" "M-*" #'harpoon-delete-8
-      :desc "Harpoon assign to 9" "M-(" #'harpoon-delete-9
+      :desc "Harpoon clear"       "M-0 0" #'harpoon-clear      
+      :desc "Harpoon assign to 1" "M-0 1" #'harpoon-delete-1
+      :desc "Harpoon assign to 2" "M-0 2" #'harpoon-delete-2
+      :desc "Harpoon assign to 3" "M-0 3" #'harpoon-delete-3
+      :desc "Harpoon assign to 4" "M-0 4" #'harpoon-delete-4
+      :desc "Harpoon assign to 5" "M-0 5" #'harpoon-delete-5
+      :desc "Harpoon assign to 6" "M-0 6" #'harpoon-delete-6
+      :desc "Harpoon assign to 7" "M-0 7" #'harpoon-delete-7
+      :desc "Harpoon assign to 8" "M-0 8" #'harpoon-delete-8
+      :desc "Harpoon assign to 9" "M-0 9" #'harpoon-delete-9
 
-      :desc "Harpoon clear"       "M-0" #'harpoon-clear
       :desc "Harpoon toggle file" "M--" #'harpoon-toggle-quick-menu)
 
 ;; avy keybindings
