@@ -31,6 +31,9 @@ plugins=(
 # Load Oh My Zsh
 source $ZSH/oh-my-zsh.sh
 
+# Disable shared history across terminal panes (overrides oh-my-zsh default)
+unsetopt share_history
+
 # Pure theme
 # NOTE: oh-my-zsh overrides the prompt so Pure must be activated after source $ZSH/oh-my-zsh.sh.
 fpath+=($HOME/.zsh/pure)
@@ -114,5 +117,5 @@ move-workspace() {
 
 # Capture stdout/stderr output to clipboard while displaying it
 clip() {
-    { "$@" 2>&1 | tee /dev/tty | pbcopy; }
+    { echo "\$ $@"; "$@" 2>&1; } | tee /dev/tty | pbcopy
 }
