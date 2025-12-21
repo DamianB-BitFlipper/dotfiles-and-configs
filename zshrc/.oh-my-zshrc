@@ -48,7 +48,7 @@ autoload -U promptinit; promptinit
 PURE_PROMPT_SYMBOL=λ
 
 # Change some of the colors
-zstyle ':prompt:pure:path' color default
+zstyle ':prompt:pure:path' color cyan
 zstyle ':prompt:pure:prompt:success' color default
 
 prompt pure

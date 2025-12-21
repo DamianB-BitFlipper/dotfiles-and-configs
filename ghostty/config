@@ -30,6 +30,7 @@ keybind = ctrl+x>5>2=new_window
 
 keybind = super+left=goto_split:previous
 keybind = super+right=goto_split:next
+keybind = ctrl+x>p=goto_split:previous
 keybind = ctrl+x>o=goto_split:next
 
 keybind = ctrl+x>b=new_tab
