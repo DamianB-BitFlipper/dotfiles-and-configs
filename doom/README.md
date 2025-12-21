@@ -21,3 +21,4 @@ The `magit-gptcommit-llm-provider` uses the locally hosted copilot API. To set u
       - machine: api.github.com
       - login: <github username>
       - password: <access token>
+- For pdf viewing, run `brew reinstall gpgme poppler` and then `M-x pdf-tools-install`
