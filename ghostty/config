@@ -2,6 +2,10 @@
 
 theme = Homebrew
 
+# Override dark (4) and light (12) blue to be cyan for better readability on dark backgrounds
+palette = 4=#00a6b2
+palette = 12=#00e5e5
+
 # Unfocused split: do not add overlay
 unfocused-split-opacity = 1
 # Homebrew dirty yellow
