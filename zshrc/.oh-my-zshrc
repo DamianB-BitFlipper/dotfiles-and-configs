@@ -119,3 +119,13 @@ move-workspace() {
 clip() {
     { echo "\$ $@"; "$@" 2>&1; } | tee /dev/tty | pbcopy
 }
+
+# tuitube
+export PATH=/Users/damianb/.termcast/compiled/tuitube/bin:$PATH
+
+# bun completions
+[ -s "/Users/damianb/.bun/_bun" ] && source "/Users/damianb/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
