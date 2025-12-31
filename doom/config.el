@@ -151,6 +151,9 @@
 (after! llm
   (setq llm-warn-on-nonfree nil))
 
+;; For a more ergonomic Emacs and `dape' experience
+(repeat-mode 1)
+
 ;; avy keybindings
 (map! :map global-map
       :desc "Avy goto char timer" "C-S-j" #'avy-goto-char-timer
