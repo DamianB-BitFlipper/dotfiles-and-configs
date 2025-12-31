@@ -151,6 +151,7 @@
 (after! llm
   (setq llm-warn-on-nonfree nil))
 
+;; Emacs built-in
 ;; For a more ergonomic Emacs and `dape' experience
 (repeat-mode 1)
 
