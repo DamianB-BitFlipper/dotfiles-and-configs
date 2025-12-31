@@ -153,11 +153,12 @@
 
 ;; avy keybindings
 (map! :map global-map
-      :desc "Avy goto char timer" "C-j" #'avy-goto-char-timer
-      :desc "Avy goto char timer" "M-j k" #'avy-goto-char-in-line
-      :desc "Avy goto char timer" "M-j K" #'avy-goto-char-2      
-      :desc "Avy goto char timer" "M-j l" #'avy-goto-line
-      :desc "Avy goto char timer" "M-j L" #'avy-goto-end-of-line)
+      :desc "Avy goto char timer" "C-S-j" #'avy-goto-char-timer
+      :desc "Avy goto char in line" "C-j C-k" #'avy-goto-char-in-line
+      :desc "Avy goto char" "C-j K" #'avy-goto-char-2      
+      :desc "Avy goto line" "C-j C-l" #'avy-goto-line
+      :desc "Avy goto end of line" "C-j L" #'avy-goto-end-of-line
+      :desc "Avy pop mark" "C-S-p" #'avy-pop-mark)
 
 ;; python mode overrides
 (map! :after python
