@@ -68,4 +68,3 @@
   :recipe (
            :local-repo "~/code/miniprojects/javelin.el"
            :build (:not compile)))
-

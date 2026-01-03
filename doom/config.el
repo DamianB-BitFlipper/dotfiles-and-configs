@@ -97,6 +97,46 @@
     :custom
     (magit-gptcommit-llm-provider
      (make-llm-openai-compatible :url "http://localhost:4141" :key "no-api-key" :chat-model "claude-haiku-4.5"))
+    (magit-gptcommit-prompt "You are an expert programmer writing a Git commit message.
+You have carefully reviewed every file diff included in this commit.
+
+First, choose the most appropriate label for the changes.
+Here are the labels you can choose from:
+- build: Changes that affect the build system or external dependencies (e.g., gulp, broccoli, npm)
+- chore: Routine tasks like updating dependencies, licenses, or repo settings
+- ci: Changes to CI configuration files or scripts (e.g., GitHub Actions, CircleCI)
+- docs: Documentation-only changes (e.g., fixing typos, adding examples)
+- feat: Introduces a new feature to the codebase
+- fix: Patches a bug in the codebase
+- perf: Improves performance without changing behavior
+- refactor: Code changes that neither fix bugs nor add features
+- style: Non-functional changes like formatting or whitespace
+- test: Adds or corrects tests
+
+Next, write a high-level summary of the commit.
+- Keep it to a single line, no more than 50 characters
+- Use the imperative tense (e.g., 'Add logging' not 'Added logging')
+- Ensure the message reflects a clear and cohesive change
+- Do not end the summary with a period
+- Do not use backticks (`) anywhere in the response
+
+Examples:
+
+- chore: Bump dependencies to latest versions
+- ci: Add caching to GitHub Actions workflow
+- docs: Update README with setup instructions
+- feat: Add user authentication with JWT
+- fix: Prevent crash when config file is missing
+- perf: Reduce database query latency
+- refactor: Simplify data processing pipeline
+- style: Reformat codebase with standard rules
+- test: Add coverage for edge case validation
+
+THE FILE DIFFS:
+```
+%s
+```
+Now, write the commit message using this format: [label]: [summary]")
     :config
     (magit-gptcommit-mode 1)
     (magit-gptcommit-status-buffer-setup))
@@ -154,6 +194,34 @@
 ;; Emacs built-in
 ;; For a more ergonomic Emacs and `dape' experience
 (repeat-mode 1)
+
+;; Add multiple cursors to a repeat map
+(defvar mc-repeat-map
+  (let ((map (make-sparse-keymap)))
+    ;; Keys from your list (suffix after C-c m …)
+    (define-key map (kbd "n") #'mc/mark-next-like-this)
+    (define-key map (kbd "p") #'mc/mark-previous-like-this)
+    (define-key map (kbd "N") #'mc/unmark-next-like-this)
+    (define-key map (kbd "P") #'mc/unmark-previous-like-this)
+
+    (define-key map (kbd "s") #'mc/skip-to-next-like-this)
+    (define-key map (kbd "S") #'mc/skip-to-previous-like-this)
+
+    map)
+  "Repeat map for the multiple-cursors keys shown in the user’s binding list.")
+
+(dolist (cmd '(mc/mark-next-like-this
+               mc/mark-previous-like-this
+               mc/unmark-next-like-this
+               mc/unmark-previous-like-this
+               mc/skip-to-next-like-this
+               mc/skip-to-previous-like-this))
+  (put cmd 'repeat-map mc-repeat-map))
+
+;; From `dape' package
+;; Load it immediately
+(use-package! dape
+  :defer nil)
 
 ;; avy keybindings
 (map! :map global-map
