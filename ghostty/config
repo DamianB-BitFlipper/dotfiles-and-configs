@@ -43,6 +43,7 @@ keybind = ctrl+x>o=goto_split:next
 keybind = ctrl+x>b=new_tab
 keybind = ctrl+super+left=previous_tab
 keybind = ctrl+super+right=next_tab
+# keybind = ctrl+x>t=prompt_tab_title
 
 keybind = super+shift+,=scroll_to_top
 keybind = super+shift+.=scroll_to_bottom

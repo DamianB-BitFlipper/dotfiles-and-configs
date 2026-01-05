@@ -68,3 +68,8 @@
   :recipe (
            :local-repo "~/code/miniprojects/javelin.el"
            :build (:not compile)))
+
+(package! magit-pre-commit
+  :recipe (
+           :local-repo "~/code/miniprojects/magit-pre-commit.el"
+           :build (:not compile)))

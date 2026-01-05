@@ -144,10 +144,15 @@ Now, write the commit message using this format: [label]: [summary]")
   ;; Configure magit-forge
   (use-package! forge))
 
-;; From `javelin' package
+;; From `javelin.el' package
 (use-package! javelin
   :config
+  (setq javelin-disable-confirmation t)
   (global-javelin-minor-mode 1))
+
+;; From `magit-pre-commit.el' package
+(use-package! magit-pre-commit
+  :after magit)
 
 ;; From `cc' module
 ;; Create a modified Stroustrup style for c/c++ files
