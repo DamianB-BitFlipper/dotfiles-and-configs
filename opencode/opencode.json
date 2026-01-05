@@ -579,8 +579,8 @@
         "model_list": "<leader>m",
         "agent_cycle": "ctrl+n",
         "agent_cycle_reverse": "none",  
-        //"model_cycle_favorite": "tab",
-        //"model_cycle_favorite_reverse": "shift+tab",
+        "model_cycle_favorite": "tab",
+        "model_cycle_favorite_reverse": "shift+tab",
         "model_cycle_recent": "ctrl+m",
         "model_cycle_recent_reverse": "ctrl+shift+m"
     },

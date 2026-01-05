@@ -191,9 +191,15 @@ Now, write the commit message using this format: [label]: [summary]")
 (after! llm
   (setq llm-warn-on-nonfree nil))
 
+;; From `lsp-mode' package
+(after! lsp-mode
+  (setq lsp-lens-enable nil)
+  (setq lsp-signature-render-documentation nil))
+
 ;; Emacs built-in
 ;; For a more ergonomic Emacs and `dape' experience
 (repeat-mode 1)
+(setq repeat-exit-key (kbd "RET"))
 
 ;; Add multiple cursors to a repeat map
 (defvar mc-repeat-map
@@ -210,6 +216,11 @@ Now, write the commit message using this format: [label]: [summary]")
     map)
   "Repeat map for the multiple-cursors keys shown in the user’s binding list.")
 
+;; Disable the RET for in multiple cursors, used for repeat mode exit
+(map! :map mc/keymap
+      "RET" nil
+      "<return>" nil)
+
 (dolist (cmd '(mc/mark-next-like-this
                mc/mark-previous-like-this
                mc/unmark-next-like-this
@@ -225,12 +236,15 @@ Now, write the commit message using this format: [label]: [summary]")
 
 ;; avy keybindings
 (map! :map global-map
-      :desc "Avy goto char timer" "C-S-j" #'avy-goto-char-timer
+      :desc "Avy goto char timer" "C-j C-j" #'avy-goto-char-timer
+      :desc "Avy goto char timer" "C-j j" #'avy-goto-char-timer
       :desc "Avy goto char in line" "C-j C-k" #'avy-goto-char-in-line
-      :desc "Avy goto char" "C-j K" #'avy-goto-char-2      
+      :desc "Avy goto char in line" "C-j k" #'avy-goto-char-in-line
       :desc "Avy goto line" "C-j C-l" #'avy-goto-line
+      :desc "Avy goto line" "C-j l" #'avy-goto-line
       :desc "Avy goto end of line" "C-j L" #'avy-goto-end-of-line
-      :desc "Avy pop mark" "C-S-p" #'avy-pop-mark)
+      :desc "Avy pop mark" "C-j C-p" #'avy-pop-mark
+      :desc "Avy pop mark" "C-j p" #'avy-pop-mark)
 
 ;; python mode overrides
 (map! :after python
@@ -267,6 +281,7 @@ Now, write the commit message using this format: [label]: [summary]")
 
 ;; Unmap any unneeded keybindings
 (map! :map ctl-x-map
+      "f" #'find-file ;; Accidental C-x f should still `find-file' rather than `set-fill-column'
       "C-c" nil ;; Prefer to kill emacs via `C-c q q'
       )
 

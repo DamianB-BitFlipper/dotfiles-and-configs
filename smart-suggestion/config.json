@@ -1,8 +1,0 @@
-{
-  "openai_compatible": {
-    "api_key": "no-api-key",
-    "base_url": "http://localhost:4141",
-    "model": "claude-haiku-4.5"
-  },
-  "default_provider": "openai_compatible"
-}
