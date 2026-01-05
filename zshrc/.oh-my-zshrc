@@ -33,6 +33,9 @@ plugins=(
 # Load Oh My Zsh
 source $ZSH/oh-my-zsh.sh
 
+# Fix comment color for zsh-syntax-highlighting (default is black, invisible on dark backgrounds)
+ZSH_HIGHLIGHT_STYLES[comment]=fg=244
+
 # Disable shared history across terminal panes (overrides oh-my-zsh default)
 unsetopt share_history
 
