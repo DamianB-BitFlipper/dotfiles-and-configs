@@ -18,6 +18,9 @@ confirm-close-surface = false
 # Copy on text select to the system clipboard
 copy-on-select = clipboard
 
+# The `no-cursor` forces the cursor to be a block
+shell-integration-features = no-cursor,sudo,title,ssh-env,ssh-terminfo
+
 # Macos specific
 
 macos-titlebar-style = tabs
