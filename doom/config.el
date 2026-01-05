@@ -154,6 +154,11 @@ Now, write the commit message using this format: [label]: [summary]")
 (use-package! magit-pre-commit
   :after magit)
 
+;; From `disable-mouse' package
+(use-package! disable-mouse
+  :config
+  (global-disable-mouse-mode))
+
 ;; From `cc' module
 ;; Create a modified Stroustrup style for c/c++ files
 (after! cc-mode

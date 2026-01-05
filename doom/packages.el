@@ -52,9 +52,12 @@
 ;; drag-stuff.el is not very useful and uses valueable keybindings
 (package! drag-stuff :disable t)
 
-;; Install magit-gptcommit library
+;; Install `magit-gptcommit' package
 (package! magit-gptcommit
   :recipe (:host github :repo "DamianB-BitFlipper/magit-gptcommit"))
+
+;; Install `disable-mouse' package
+(package! disable-mouse)
 
 ;; For local dev, do not compile so that `eval-buffer'/`doom/reload '
 ;; can be used to reload the package for testing
