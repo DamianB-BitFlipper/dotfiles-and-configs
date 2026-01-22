@@ -52,12 +52,15 @@
 ;; drag-stuff.el is not very useful and uses valueable keybindings
 (package! drag-stuff :disable t)
 
-;; Install `magit-gptcommit' package
+;; Install `magit-gptcommit' package for LLM generated commit messages
 (package! magit-gptcommit
   :recipe (:host github :repo "DamianB-BitFlipper/magit-gptcommit"))
 
 ;; Install `disable-mouse' package
 (package! disable-mouse)
+
+;; Install `kubel' package for kubernetes management
+(package! kubel)
 
 ;; For local dev, do not compile so that `eval-buffer'/`doom/reload '
 ;; can be used to reload the package for testing
@@ -76,3 +79,6 @@
   :recipe (
            :local-repo "~/code/miniprojects/magit-pre-commit.el"
            :build (:not compile)))
+
+(package! scroll-around
+  :recipe (:host github :repo "DamianB-BitFlipper/scroll-around.el"))

@@ -102,6 +102,9 @@ alias git-prune-branches='git fetch -p && git branch -vv | grep ": gone]" | awk 
 # Tailscale CLI
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
+# opencode
+alias oc="opencode"
+
 # ==============================================================================
 # Functions
 # ==============================================================================

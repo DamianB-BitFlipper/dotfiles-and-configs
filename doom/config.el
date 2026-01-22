@@ -84,6 +84,11 @@
 (after! dash-docs
   (setq dash-docs-browser-func #'browse-url))
 
+;; Built-in `auth-source' module
+;; Set the auth-source files
+(after! auth-source
+  (setq auth-sources '("~/.authinfo" "~/.authinfo.gpg")))
+
 ;; From `magit' module
 (after! magit
   ;; Set the recommended length of a single line in a git commit message to 68 characters
@@ -94,10 +99,15 @@
   (use-package! magit-gptcommit
     :init
     (require 'llm-openai)
-    :custom
-    (magit-gptcommit-llm-provider
-     (make-llm-openai-compatible :url "http://localhost:4141" :key "no-api-key" :chat-model "claude-haiku-4.5"))
-    (magit-gptcommit-prompt "You are an expert programmer writing a Git commit message.
+    (require 'auth-source)
+
+    :config
+    ;; (setq magit-gptcommit-llm-provider
+    ;;       (make-llm-openai-compatible :url "http://localhost:4141" :key "no-api-key" :chat-model "claude-haiku-4.5"))
+    (let ((credential (auth-source-user-and-password "api.openai.com")))
+      (setq magit-gptcommit-llm-provider
+            (make-llm-openai :key (cadr credential) :chat-model "gpt-4o-mini")))
+    (setq magit-gptcommit-prompt "You are an expert programmer writing a Git commit message.
 You have carefully reviewed every file diff included in this commit.
 
 First, choose the most appropriate label for the changes.
@@ -137,7 +147,6 @@ THE FILE DIFFS:
 %s
 ```
 Now, write the commit message using this format: [label]: [summary]")
-    :config
     (magit-gptcommit-mode 1)
     (magit-gptcommit-status-buffer-setup))
 
@@ -159,6 +168,10 @@ Now, write the commit message using this format: [label]: [summary]")
   :config
   (global-disable-mouse-mode))
 
+;; From `kubel' package
+(use-package! kubel
+  :bind ("C-c o K" . kubel))
+
 ;; From `cc' module
 ;; Create a modified Stroustrup style for c/c++ files
 (after! cc-mode
@@ -178,11 +191,6 @@ Now, write the commit message using this format: [label]: [summary]")
 ;; Set the default ispell dictionary to en_US
 (after! ispell
   (setq ispell-dictionary "en_US"))
-
-;; Built-in `auth-source' module
-;; Set the auth-source files
-(after! auth-source
-  (setq auth-sources '("~/.authinfo" "~/.authinfo.gpg")))
 
 ;; From `markdown' module
 ;; Set up grip
@@ -243,6 +251,11 @@ Now, write the commit message using this format: [label]: [summary]")
 ;; Load it immediately
 (use-package! dape
   :defer nil)
+
+;; From `scroll-around' package
+(use-package! scroll-around
+  :config
+  (scroll-around-mode 1))
 
 ;; avy keybindings
 (map! :map global-map
