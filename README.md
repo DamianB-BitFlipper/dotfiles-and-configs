@@ -19,3 +19,14 @@ machine <resource-uri> login <resource-login> password <resource-password>
 ```
 
 The respective READMEs should state what the required authentication resources are.
+
+## Other Software
+
+- Docker (https://docs.docker.com/desktop/setup/install/mac-install/)
+- Claude (https://support.claude.com/en/articles/10065433-installing-claude-desktop)
+- Proton software
+- Discord (https://discord.com/download?mac)
+- Linear (https://linear.app/download)
+- Signal (https://signal.org/download/macos/)
+- Standard Notes (https://standardnotes.com/)
+- Spotify (https://www.spotify.com/us/download/mac/)
