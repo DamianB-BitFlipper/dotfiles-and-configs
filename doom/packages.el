@@ -60,7 +60,11 @@
 (package! disable-mouse)
 
 ;; Install `kubel' package for kubernetes management
-(package! kubel)
+;; (package! kubel)
+(package! kubel
+  :recipe (
+           :local-repo "~/code/forks/kubel"
+           :build (:not compile)))
 
 ;; For local dev, do not compile so that `eval-buffer'/`doom/reload '
 ;; can be used to reload the package for testing

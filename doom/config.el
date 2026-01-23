@@ -170,7 +170,8 @@ Now, write the commit message using this format: [label]: [summary]")
 
 ;; From `kubel' package
 (use-package! kubel
-  :bind ("C-c o K" . kubel))
+  :config
+  (kubel-global-mode 1))
 
 ;; From `cc' module
 ;; Create a modified Stroustrup style for c/c++ files
