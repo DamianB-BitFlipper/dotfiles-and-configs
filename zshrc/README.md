@@ -69,9 +69,12 @@ The URL `http://localhost:4141` is the local copilot-api server endpoint.
 - `pipx`
 - `uv`
 - `direnv`
+- `thefuck` (`brew install thefuck`)
 - `fzf` (`brew install fzf`)
 - `zoxide` (`brew install zoxide`)
 - `opencode`
+- `tuitube` (https://github.com/remorses/tuitube)
+- `bun`
 
 ### Optional
 
