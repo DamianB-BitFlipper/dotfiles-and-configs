@@ -1,6 +1,6 @@
 # Ghostty Configuration
 
-Configuration for the [Ghostty](https://ghostty.org/) terminal emulator.
+Configuration for the [Ghostty](https://ghostty.org/) terminal emulator. The `ghostty` finds the `config` file in this directory automatically. So no need to `ln`.
 
 ## Features
 

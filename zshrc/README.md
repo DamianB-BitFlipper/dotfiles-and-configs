@@ -41,6 +41,7 @@ This assumes you have a valid GitHub Copilot subscription.
 Install copilot-api via pnpm:
 
 ```sh
+pnpm config set global-bin-dir /opt/homebrew/bin
 pnpm install -g copilot-api
 ```
 
@@ -68,9 +69,13 @@ The URL `http://localhost:4141` is the local copilot-api server endpoint.
 - `pipx`
 - `uv`
 - `direnv`
+- `thefuck` (`brew install thefuck`)
 - `fzf` (`brew install fzf`)
 - `zoxide` (`brew install zoxide`)
 - `opencode`
+- `tuitube` (https://github.com/remorses/tuitube)
+- `bun`
+- `kubectl` (https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)
 
 ### Optional
 
