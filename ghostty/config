@@ -27,25 +27,18 @@ macos-titlebar-style = tabs
 
 keybind = super+shift+r=reload_config
 
-# ------ Emacs-like keybindings ------
-
-keybind = ctrl+x>2=new_split:down
-keybind = ctrl+x>3=new_split:right
-keybind = ctrl+x>k=close_surface
-
-keybind = ctrl+x>5>2=new_window
+# ------ Keybindings ------
+# Note: Terminal splitting is handled by tmux
 
 keybind = super+left=goto_split:previous
 keybind = super+right=goto_split:next
-keybind = ctrl+x>p=goto_split:previous
-keybind = ctrl+x>o=goto_split:next
 
-keybind = ctrl+x>b=new_tab
-keybind = ctrl+super+left=previous_tab
-keybind = ctrl+super+right=next_tab
+# Window navigation for tmux (sends text sequences that tmux can bind to)
+keybind = ctrl+super+left=text:\x18N
+keybind = ctrl+super+right=text:\x18P
+
 keybind = ctrl+super+shift+left=move_tab:-1
 keybind = ctrl+super+shift+right=move_tab:1
-# keybind = ctrl+x>t=prompt_tab_title
 
 keybind = super+shift+,=scroll_to_top
 keybind = super+shift+.=scroll_to_bottom

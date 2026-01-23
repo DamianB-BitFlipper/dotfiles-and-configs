@@ -25,14 +25,6 @@ exec-on-workspace-change = ['/bin/bash', '-c',
     'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
 
-# Ghostty aerospace workaround
-# https://ghostty.org/docs/help/macos-tiling-wms#aerospace
-[[on-window-detected]]
-if.app-id="com.mitchellh.ghostty"
-run= [
-  "layout floating",
-]
-
 # Finder tabs also have difficulty with aerospace
 [[on-window-detected]]
 if.app-id = "com.apple.finder"
@@ -138,6 +130,9 @@ alt-r = 'mode resize'
 
 [workspace-to-monitor-force-assignment]
 1 = '^DELL S2722QC$'
+0 = '^DELL S2725QS$'
+2 = '^DELL S2725QS$'
+4 = '^DELL S2725QS$'
 
 [mode.resize.binding]
 left = 'resize width -50'
