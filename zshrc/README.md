@@ -75,6 +75,7 @@ The URL `http://localhost:4141` is the local copilot-api server endpoint.
 - `opencode`
 - `tuitube` (https://github.com/remorses/tuitube)
 - `bun`
+- `kubectl` (https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)
 
 ### Optional
 
