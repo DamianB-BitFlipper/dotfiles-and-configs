@@ -24,3 +24,5 @@
 !smart-suggestion/**
 !ghostty/
 !ghostty/**
+!tmux/
+!tmux/**
