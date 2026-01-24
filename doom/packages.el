@@ -86,3 +86,8 @@
 
 (package! scroll-around
   :recipe (:host github :repo "DamianB-BitFlipper/scroll-around.el"))
+
+(package! docker
+  :recipe (
+           :local-repo "~/code/forks/docker.el"
+           :build (:not compile)))

@@ -95,6 +95,8 @@ sketchybar --add item docker right \
            update_freq=5
 sketchybar --add item discord right \
            --set discord update_freq=5 script="$PLUGIN_DIR/discord.sh"
+sketchybar --add item signal right \
+           --set signal update_freq=5 script="$PLUGIN_DIR/signal.sh"
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
