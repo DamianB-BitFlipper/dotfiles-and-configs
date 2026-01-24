@@ -3,5 +3,5 @@ PERCENT=$(memory_pressure | grep "System-wide memory free percentage:" | awk '{ 
 if [ "$PERCENT" -lt 30 ]; then
 	sketchybar --set "$NAME" drawing=off
 else
-	sketchybar --set "$NAME" drawing=on label="${PERCENT}%"
+	sketchybar --set "$NAME" drawing=on label="${PERCENT}%" icon=
 fi

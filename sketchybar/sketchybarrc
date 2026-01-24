@@ -84,15 +84,17 @@ sketchybar --add item wifi right \
            --set wifi script="$PLUGIN_DIR/wifi.sh" \
            update_freq=5
 sketchybar --add item cpu right \
-           --set cpu update_freq=5 icon= script="$PLUGIN_DIR/cpu.sh"
+           --set cpu update_freq=5 script="$PLUGIN_DIR/cpu.sh"
 sketchybar --add item memory right \
-           --set memory update_freq=5 icon= script="$PLUGIN_DIR/ram.sh"
+           --set memory update_freq=5 script="$PLUGIN_DIR/ram.sh"
 sketchybar --add item bitcoin right \
            --set bitcoin script="$PLUGIN_DIR/bitcoin.sh" \
            update_freq=120
 sketchybar --add item docker right \
            --set docker script="$PLUGIN_DIR/docker.sh" \
            update_freq=5
+sketchybar --add item discord right \
+           --set discord update_freq=5 script="$PLUGIN_DIR/discord.sh"
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
