@@ -283,6 +283,7 @@ Now, write the commit message using this format: [label]: [summary]")
 
 ;; Keybindings with no package loading dependency
 (map! :map 'override
+      :desc "Find references" "M-/" #'+lookup/references
       :desc "Go to beginning of function" "C-M-;" #'beginning-of-defun
       :desc "Go to end of function" "C-M-'" #'end-of-defun
 
