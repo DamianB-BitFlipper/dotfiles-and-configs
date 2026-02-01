@@ -161,7 +161,7 @@ Now, write the commit message using this format: [label]: [summary]")
 
 ;; From `magit-pre-commit.el' package
 (use-package! magit-pre-commit
-  :after magit)
+  :hook (magit-mode . magit-pre-commit-mode))
 
 ;; From `disable-mouse' package
 (use-package! disable-mouse
