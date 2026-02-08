@@ -15,7 +15,7 @@ ln -s ~/.config/tmux/tmux.conf ~/.tmux.conf
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # Install libtmux (required for tmux-window-name plugin)
-pip3 install --user libtmux
+uv pip install --system --break-system-packages libtmux
 ```
 
 ## Post-Install
