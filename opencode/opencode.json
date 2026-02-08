@@ -42,6 +42,11 @@
             "rm*": "ask",
             "docker compose*": "deny",
             "docker exec*": "ask",
+            "kubectl*": "ask",
+            "kubectl get*": "allow",
+            "kubectl describe*": "allow",
+            "kubectl logs*": "allow",
+            "kubectl config view*": "allow",
         },
         "webfetch": "allow"
     }

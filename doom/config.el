@@ -215,6 +215,10 @@ Now, write the commit message using this format: [label]: [summary]")
   (setq lsp-lens-enable nil)
   (setq lsp-signature-render-documentation nil))
 
+;; From `lsp-ui' package
+(after! lsp-ui
+  (setq lsp-ui-peek-peek-height 40))
+
 ;; Emacs built-in
 ;; For a more ergonomic Emacs and `dape' experience
 (repeat-mode 1)
