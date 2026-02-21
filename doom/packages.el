@@ -59,6 +59,9 @@
 ;; Install `disable-mouse' package
 (package! disable-mouse)
 
+;; Install `protobuf-mode' package
+(package! protobuf-mode)
+
 ;; Install `kubel' package for kubernetes management
 ;; (package! kubel)
 (package! kubel
@@ -79,10 +82,10 @@
            :local-repo "~/code/miniprojects/javelin.el"
            :build (:not compile)))
 
-(package! magit-pre-commit
-  :recipe (
-           :local-repo "~/code/miniprojects/magit-pre-commit.el"
-           :build (:not compile)))
+;; (package! magit-pre-commit
+;;   :recipe (
+;;            :local-repo "~/code/miniprojects/magit-pre-commit.el"
+;;            :build (:not compile)))
 
 (package! scroll-around
   :recipe (:host github :repo "DamianB-BitFlipper/scroll-around.el"))

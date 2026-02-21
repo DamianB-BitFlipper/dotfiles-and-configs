@@ -6,14 +6,14 @@
             "enabled": true
         }
     },
-    "plugin": ["@tarquinen/opencode-dcp@latest"],
+    "plugin": [],
     "provider": {
         "openrouter": {
             "models": {
-                "z-ai/glm-4.7": {
+                "moonshotai/kimi-k2.5": {
                     "options": {
                         "provider": {
-                            "order": ["cerebras"],
+                            "order": ["baseten/fp4"],
                             "allow_fallbacks": false
                         }
                     }
@@ -36,8 +36,11 @@
     "permission": {
         "bash": {
             "*": "allow",
+            "sudo*": "ask",
             "gcloud*": "ask",
             "gcloud logging*": "allow",
+            "gsutil*": "ask",
+            "ssh*": "ask",
             "git commit*": "ask",
             "rm*": "ask",
             "docker compose*": "deny",

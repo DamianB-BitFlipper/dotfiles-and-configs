@@ -159,9 +159,9 @@ Now, write the commit message using this format: [label]: [summary]")
   (setq javelin-disable-confirmation t)
   (global-javelin-minor-mode 1))
 
-;; From `magit-pre-commit.el' package
-(use-package! magit-pre-commit
-  :hook (magit-mode . magit-pre-commit-mode))
+;; ;; From `magit-pre-commit.el' package
+;; (use-package! magit-pre-commit
+;;   :hook (magit-mode . magit-pre-commit-mode))
 
 ;; From `disable-mouse' package
 (use-package! disable-mouse
