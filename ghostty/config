@@ -37,8 +37,9 @@ keybind = super+right=goto_split:next
 keybind = ctrl+super+left=text:\x18N
 keybind = ctrl+super+right=text:\x18P
 
-keybind = ctrl+super+shift+left=move_tab:-1
-keybind = ctrl+super+shift+right=move_tab:1
+# Window reordering for tmux (sends C-x { and C-x })
+keybind = ctrl+super+shift+left=text:\x18{
+keybind = ctrl+super+shift+right=text:\x18}
 
 keybind = super+shift+,=scroll_to_top
 keybind = super+shift+.=scroll_to_bottom
