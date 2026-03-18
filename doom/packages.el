@@ -53,8 +53,8 @@
 (package! drag-stuff :disable t)
 
 ;; Install `magit-gptcommit' package for LLM generated commit messages
-(package! magit-gptcommit
-  :recipe (:host github :repo "DamianB-BitFlipper/magit-gptcommit"))
+;; (package! magit-gptcommit
+;;   :recipe (:host github :repo "DamianB-BitFlipper/magit-gptcommit"))
 
 ;; Install `disable-mouse' package
 (package! disable-mouse)
@@ -71,11 +71,11 @@
 
 ;; For local dev, do not compile so that `eval-buffer'/`doom/reload '
 ;; can be used to reload the package for testing
-;; (package! magit-gptcommit
-;;   :recipe (
-;;            :local-repo "~/code/miniprojects/magit-gptcommit"
-;;            :files ("*.el")
-;;            :build (:not compile)))
+(package! magit-gptcommit
+  :recipe (
+           :local-repo "~/code/miniprojects/magit-gptcommit"
+           :files ("*.el")
+           :build (:not compile)))
 
 (package! javelin
   :recipe (

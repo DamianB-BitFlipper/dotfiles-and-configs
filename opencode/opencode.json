@@ -1,11 +1,5 @@
 {
     "$schema": "https://opencode.ai/config.json",
-    "tui": {
-        "scroll_speed": 3,
-        "scroll_acceleration": {
-            "enabled": true
-        }
-    },
     "plugin": [],
     "provider": {
         "openrouter": {
@@ -13,25 +7,13 @@
                 "moonshotai/kimi-k2.5": {
                     "options": {
                         "provider": {
-                            "order": ["baseten/fp4"],
+                            "order": ["novita"],
                             "allow_fallbacks": false
                         }
                     }
                 }
             }
         }
-    },    
-    "keybinds": {
-        "sidebar_toggle": "ctrl+b",
-        "session_child_cycle": "ctrl+;",
-        "session_child_cycle_reverse": "ctrl+l",
-        "model_list": "<leader>m",
-        "agent_cycle": "ctrl+n",
-        "agent_cycle_reverse": "alt+n",  
-        "model_cycle_favorite": "ctrl+f",
-        "model_cycle_favorite_reverse": "none",
-        "model_cycle_recent": "tab",
-        "model_cycle_recent_reverse": "shift+tab"
     },
     "permission": {
         "bash": {
@@ -42,6 +24,7 @@
             "gsutil*": "ask",
             "ssh*": "ask",
             "git commit*": "ask",
+            "git push*": "ask",
             "rm*": "ask",
             "docker compose*": "deny",
             "docker exec*": "ask",
