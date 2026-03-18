@@ -18,12 +18,15 @@ confirm-close-surface = false
 # Copy on text select to the system clipboard
 copy-on-select = clipboard
 
-# The `no-cursor` forces the cursor to be a block
-shell-integration-features = no-cursor,sudo,title,ssh-env,ssh-terminfo
+# Disable Ghostty's shell integration to prevent conflicts with Pure prompt.
+# Ghostty's OSC 133 prompt marking inserts escape sequences into PS1 that break
+# Pure's prompt reconstruction, causing the path line (~) to duplicate on each
+# command. Pure already handles title setting, and oh-my-zsh handles the rest.
+shell-integration = none
 
 # Macos specific
 
-macos-titlebar-style = tabs
+macos-titlebar-style = hidden
 
 keybind = super+shift+r=reload_config
 

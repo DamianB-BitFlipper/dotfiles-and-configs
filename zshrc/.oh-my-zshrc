@@ -43,8 +43,10 @@ unsetopt share_history
 # NOTE: oh-my-zsh overrides the prompt so Pure must be activated after source $ZSH/oh-my-zsh.sh.
 fpath+=($HOME/.zsh/pure)
 
-# Pure also prints newlines between commands. This hack disables the `print`
-# command when called from `prompt_pure_precmd`
+# Pure prints a blank line between commands for "spaciousness". This hack
+# suppresses it by intercepting the no-arg `print` call from prompt_pure_precmd.
+# NOTE: This requires shell-integration = none in Ghostty config, otherwise
+# Ghostty's OSC 133 marks corrupt PROMPT and cause the path line to duplicate.
 print() {
   [ 0 -eq $# -a "prompt_pure_precmd" = "${funcstack[-1]}" ] || builtin print "$@";
 }
